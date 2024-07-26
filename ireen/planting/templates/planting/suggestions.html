@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Planting Suggestions</title>
+</head>
+<body>
+    <h1>Planting Suggestions</h1>
+    <ul>
+        {% for suggestion in suggestions %}
+            <li>{{ suggestion.crop }} - {{ suggestion.season }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

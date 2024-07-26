@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chemical Tracker</title>
+</head>
+<body>
+    <h1>Chemical Tracker</h1>
+    <h2>Chemicals</h2>
+    <ul>
+        {% for chemical in chemicals %}
+        <li>{{ chemical.purchase_date }}: {{ chemical.name }} - {{ chemical.active_ingredient }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Treatments</h2>
+    <ul>
+        {% for treatment in treatments %}
+        <li>{{ treatment.treatment_date }}: {{ treatment.plant }} - {{ treatment.illness }} - {{ treatment.chemical.name }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

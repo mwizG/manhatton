@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Selling Recommendations</title>
+</head>
+<body>
+    <h1>Selling Recommendations</h1>
+    <ul>
+        {% for recommendation in recommendations %}
+            <li>{{ recommendation.location }} - Demand: {{ recommendation.demand }} - Price: {{ recommendation.price }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

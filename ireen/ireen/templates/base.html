@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Farming App{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <header>
+        <h1>My Farming App</h1>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}! <a href="{% url 'logout' %}">Logout</a></p>
+        {% else %}
+            <p><a href="{% url 'login' %}">Login</a></p>
+        {% endif %}
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'logbook_home' %}">Log Book</a></li>
+            <li><a href="{% url 'chemical_tracker_home' %}">Chemical Tracker</a></li>
+            <li><a href="{% url 'weather_home' %}">Weather</a></li>
+            <li><a href="{% url 'planting_home' %}">Planting Suggestions</a></li>
+            <li><a href="{% url 'selling_home' %}">Selling Suggestions</a></li>
+        </ul>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 My Farming App</p>
+    </footer>
+</body>
+</html>
