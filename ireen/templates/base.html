@@ -4,14 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Farming App{% endblock %}</title>
-    {%load static%}
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script>
+        function toggleMenu() {
+            const navUl = document.getElementById('nav-ul');
+            navUl.classList.toggle('active');
+        }
+    </script>
 </head>
 <body>
     <header>
         <h1>Farm Management System</h1>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <nav>
-            <ul>
+            <ul id="nav-ul">
                 <li><a href="{% url 'logbook:logbook' %}">Log Book</a></li>
                 <li><a href="{% url 'chemicaltracker:chemicalT' %}">Chemical Tracker</a></li>
                 <li><a href="{% url 'weather:weather_forecast' %}">Weather</a></li>
@@ -19,7 +30,7 @@
                 <li><a href="{% url 'selling_recom:selling_recom' %}">Selling Suggestions</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'users:logout' %}">Log Out</a></li>
-                    <li><a href="{% url 'users:view_profile' %}">your profile</a></li>
+                    <li><a href="{% url 'users:view_profile' %}">Your Profile</a></li>
                 {% else %}
                     <li><a href="{% url 'users:signup' %}">Sign Up</a></li>
                     <li><a href="{% url 'users:login' %}">Log In</a></li>
@@ -33,7 +44,7 @@
         {% endblock %}
     </main>
     <footer>
-        <p>&copy; 2024 Farm Management System</p>
+        <p>&copy; 2024 IREEN</p>
     </footer>
 </body>
 </html>
