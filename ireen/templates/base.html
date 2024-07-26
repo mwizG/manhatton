@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Farming App{% endblock %}</title>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Farm Management System</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'logbook:logbook' %}">Log Book</a></li>
+                <li><a href="{% url 'chemicaltracker:chemicalT' %}">Chemical Tracker</a></li>
+                <li><a href="{% url 'weather:weather_forecast' %}">Weather</a></li>
+                <li><a href="{% url 'planting_sug:planting_sug' %}">Planting Suggestions</a></li>
+                <li><a href="{% url 'selling_recom:selling_recom' %}">Selling Suggestions</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'users:logout' %}">Log Out</a></li>
+                    <li><a href="{% url 'users:view_profile' %}">your profile</a></li>
+                {% else %}
+                    <li><a href="{% url 'users:signup' %}">Sign Up</a></li>
+                    <li><a href="{% url 'users:login' %}">Log In</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        <!-- Main content will be inserted here -->
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Farm Management System</p>
+    </footer>
+</body>
+</html>

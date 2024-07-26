@@ -43,14 +43,15 @@ INSTALLED_APPS = [
     'weather',
     'planting',  # Ensure this matches your app name
     'selling',  # Ensure this matches your app name
-    'users',  # Ensure this matches your app name
+    'users',
+     'home'  # Ensure this matches your app name
 ]
 
 
 # Login and Redirect URLs
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'logbook_home'
-LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'logbook:logbook'
+LOGOUT_REDIRECT_URL = 'users:login'
 
 # Templates
 TEMPLATES = [

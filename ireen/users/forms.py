@@ -13,4 +13,7 @@ class SignUpForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('bio', 'location', 'birth_date')
+        fields = ('firstname','lastname','bio', 'location', 'birth_date')
+        widgets = {
+            'birth_date': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'})
+        }
