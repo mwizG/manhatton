@@ -17,7 +17,7 @@ def add_expense(request):
             expense = form.save(commit=False)
             expense.user = request.user
             expense.save()
-            return redirect('logbook_home')
+            return redirect('logbook:logbook')
     else:
         form = ExpenseForm()
     return render(request, 'logbook/add_expense.html', {'form': form})
@@ -30,7 +30,7 @@ def add_sale(request):
             sale = form.save(commit=False)
             sale.user = request.user
             sale.save()
-            return redirect('logbook_home')
+            return redirect('logbook:logbook')
     else:
         form = SaleForm()
     return render(request, 'logbook/add_sale.html', {'form': form})

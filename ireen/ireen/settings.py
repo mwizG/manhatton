@@ -53,6 +53,9 @@ LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'logbook:logbook'
 LOGOUT_REDIRECT_URL = 'users:login'
 
+
+
+
 # Templates
 TEMPLATES = [
     {
