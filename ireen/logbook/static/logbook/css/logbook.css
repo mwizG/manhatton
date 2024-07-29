@@ -1,3 +1,5 @@
+/* logbook.css */
+
 /* General Styles */
 body {
     font-family: 'Arial', sans-serif;
@@ -28,7 +30,6 @@ h1 {
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
-    flex-wrap: wrap; /* Ensures items wrap on smaller screens */
 }
 
 .summary-item {
@@ -39,7 +40,6 @@ h1 {
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
-    min-width: 200px; /* Ensures item width on smaller screens */
 }
 
 .summary-item h3 {
@@ -60,7 +60,6 @@ h1 {
     justify-content: space-between;
     margin-bottom: 40px;
     gap: 20px;
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
 }
 
 .section {
@@ -69,7 +68,6 @@ h1 {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    min-width: 300px; /* Ensures minimum width on smaller screens */
 }
 
 .section h2 {
@@ -86,33 +84,16 @@ h1 {
 }
 
 .list-item {
+    border-bottom: 1px solid #dcdcdc;
+    padding: 15px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid #dcdcdc;
-    background-color: #ffffff; /* White background */
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
 }
 
-.item-details {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.item-date {
-    font-size: 0.875rem;
-    color: #006400; /* Dark Green */
-    margin-bottom: 5px;
-}
-
-.item-info {
+.list-item span {
     font-size: 1rem;
-    color: #004d00; /* Darker Green */
+    color: #006400; /* Dark Green */
 }
 
 .actions {
@@ -120,14 +101,12 @@ h1 {
     gap: 10px;
 }
 
-.btn {
+.actions .btn {
     padding: 8px 12px;
     text-decoration: none;
     border-radius: 5px;
     color: #ffffff;
     font-size: 0.875rem;
-    display: inline-block;
-    text-align: center;
 }
 
 .btn-primary {
@@ -146,35 +125,32 @@ h1 {
     background-color: #c82333; /* Darker Red */
 }
 
-/* Chart Styles */
-canvas {
-    width: 100%;
-    height: 400px;
+/* Button Styles */
+button {
+    background-color: #28a745; /* Green */
+    border: none;
+    color: #ffffff;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-/* Media Queries */
+button:hover {
+    background-color: #218838; /* Darker Green */
+}
+
+/* Responsive Styles */
 @media (max-width: 768px) {
-    .summary {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .summary-item {
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-
     .section-container {
         flex-direction: column;
-        align-items: center;
     }
-
+    
     .section {
-        min-width: 100%;
-    }
-
-    .list-item {
-        flex-direction: column;
-        align-items: flex-start;
+        margin-bottom: 20px;
     }
 }

@@ -6,37 +6,6 @@ from .models import Expense, Sale
 from .forms import ExpenseForm, SaleForm
 import json
 
-
-@login_required
-def logbook_home(request):
-    expenses = Expense.objects.filter(user=request.user)
-    sales = Sale.objects.filter(user=request.user)
-
-    # Calculate total spent and total earned
-    total_spent = sum(expense.amount_spent for expense in expenses)
-    total_earned = sum(sale.amount_earned for sale in sales)
-    profit = total_earned - total_spent
-
-    # Format values with currency symbol
-    formatted_total_spent = f'k {total_spent:,.2f}'
-    formatted_total_earned = f'K{total_earned:,.2f}'
-    formatted_profit = f'K{profit:,.2f}'
-    
-    print('formatted:', formatted_profit)
-    # Serialize data for Chart.js
-    expense_data = json.dumps(list(expenses.values('date', 'amount_spent')), cls=DjangoJSONEncoder)
-    sale_data = json.dumps(list(sales.values('date', 'amount_earned')), cls=DjangoJSONEncoder)
-
-    return render(request, 'logbook/index.html', {
-        'expenses': expenses,
-        'sales': sales,
-        'expense_data': expense_data,
-        'sale_data': sale_data,
-        'total_spent': formatted_total_spent,
-        'total_earned': formatted_total_earned,
-        'profit': formatted_profit,
-    })
-
 @login_required
 def add_expense(request):
     if request.method == 'POST':

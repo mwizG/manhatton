@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Farm Management System{% endblock %}
+{% block title %}Log Book{% endblock %}
 
 {% block content %}
 <!DOCTYPE html>
@@ -10,11 +10,73 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'logbook.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBySelect = document.getElementById('filter_by');
+            const filterValueInput = document.getElementById('filter_value');
+            const filterValueTextInput = document.getElementById('filter_value_text');
+            const filterRangeStartInput = document.getElementById('filter_range_start');
+            const filterRangeEndInput = document.getElementById('filter_range_end');
+
+            function updateFilterInputs() {
+                const selectedFilter = filterBySelect.value;
+                filterValueInput.style.display = ['day', 'month', 'year', 'amount_spent', 'amount_earned', 'product', 'item'].includes(selectedFilter) ? 'inline' : 'none';
+                filterValueTextInput.style.display = ['amount_spent', 'amount_earned', 'product', 'item'].includes(selectedFilter) ? 'inline' : 'none';
+                filterRangeStartInput.style.display = filterRangeEndInput.style.display = selectedFilter === 'date_range' ? 'inline' : 'none';
+            }
+
+            filterBySelect.addEventListener('change', updateFilterInputs);
+            updateFilterInputs();
+
+            // Create the comparison chart
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+            const expenseData = JSON.parse('{{ expense_data|escapejs }}');
+            const saleData = JSON.parse('{{ sale_data|escapejs }}');
+
+            const labels = [...new Set([...expenseData.map(item => item.date), ...saleData.map(item => item.date)])];
+            const expenses = labels.map(date => {
+                const entry = expenseData.find(e => e.date === date);
+                return entry ? entry.total_spent : 0;
+            });
+            const sales = labels.map(date => {
+                const entry = saleData.find(e => e.date === date);
+                return entry ? entry.total_earned : 0;
+            });
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Expenses',
+                            data: expenses,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Sales',
+                            data: sales,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
-        <h1>Your Log Book</h1>
-        
         <div class="summary">
             <div class="summary-item">
                 <h3>Total Spent</h3>
@@ -27,6 +89,33 @@
             <div class="summary-item">
                 <h3>Profit Made</h3>
                 <p id="profit">{{ profit }}</p>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Filter</button>
+            <div id="filterDropdown" class="dropdown-content">
+                <form id="filterForm" method="get">
+                    <select name="filter_by" id="filter_by">
+                        <option value="">Select Filter</option>
+                        <option value="day" {% if filter_by == 'day' %}selected{% endif %}>Day</option>
+                        <option value="month" {% if filter_by == 'month' %}selected{% endif %}>Month</option>
+                        <option value="year" {% if filter_by == 'year' %}selected{% endif %}>Year</option>
+                        <option value="date_range" {% if filter_by == 'date_range' %}selected{% endif %}>Date Range</option>
+                        <option value="amount_spent" {% if filter_by == 'amount_spent' %}selected{% endif %}>Amount Spent</option>
+                        <option value="amount_earned" {% if filter_by == 'amount_earned' %}selected{% endif %}>Amount Earned</option>
+                        <option value="product" {% if filter_by == 'product' %}selected{% endif %}>Product</option>
+                        <option value="item" {% if filter_by == 'item' %}selected{% endif %}>Item</option>
+                    </select>
+
+                    <input type="date" name="filter_value" id="filter_value" placeholder="Select Date" value="{{ filter_value }}" style="display: none;">
+                    <input type="text" name="filter_value" id="filter_value_text" placeholder="Enter Value" value="{{ filter_value_text }}" style="display: none;">
+                    <input type="date" name="filter_range_start" id="filter_range_start" placeholder="Start Date" value="{{ filter_range_start }}" style="display: none;">
+                    <input type="date" name="filter_range_end" id="filter_range_end" placeholder="End Date" value="{{ filter_range_end }}" style="display: none;">
+
+                    <button type="submit" class="btn btn-primary">Apply Filter</button>
+                    <a href="{% url 'logbook:clear_filters' %}" class="btn btn-secondary">Clear Filters</a>
+                </form>
             </div>
         </div>
 
@@ -52,18 +141,18 @@
 
             <div class="section sales">
                 <h2>Sales</h2>
-            <ul class="list">
-                {% for sale in sales %}
-                    <li class="list-item">
-                        <div class="item-details">
-                            <span class="item-date">{{ sale.date }}</span>
-                            <span class="item-info">{{ sale.product }} - K{{ sale.amount_earned }}</span>
-                        </div>
-                        <div class="actions">
-                            <a href="{% url 'logbook:update_sale' sale.pk %}" class="btn btn-primary">Update</a>
-                            <a href="{% url 'logbook:delete_sale' sale.pk %}" class="btn btn-danger">Delete</a>
-                        </div>
-                    </li>
+                <ul class="list">
+                    {% for sale in sales %}
+                        <li class="list-item">
+                            <div class="item-details">
+                                <span class="item-date">{{ sale.date }}</span>
+                                <span class="item-info">{{ sale.product }} - K{{ sale.amount_earned }}</span>
+                            </div>
+                            <div class="actions">
+                                <a href="{% url 'logbook:update_sale' sale.pk %}" class="btn btn-primary">Update</a>
+                                <a href="{% url 'logbook:delete_sale' sale.pk %}" class="btn btn-danger">Delete</a>
+                            </div>
+                        </li>
                     {% endfor %}
                 </ul>
                 <button class="btn btn-primary" onclick="window.location.href='{% url 'logbook:add_sale' %}'">Add Sale</button>
@@ -72,88 +161,8 @@
 
         <div class="section">
             <h2>Sales vs Expenses</h2>
-            <canvas id="comparisonChart"></canvas>
+            <canvas id="comparisonChart" width="800" height="400"></canvas>
         </div>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                var ctx = document.getElementById('comparisonChart').getContext('2d');
-
-                // Parse the JSON data for expenses and sales
-                var expenseData = JSON.parse('{{ expense_data|escapejs }}');
-                var saleData = JSON.parse('{{ sale_data|escapejs }}');
-
-                // Extract dates and amounts, ensuring the date format matches
-                var labels = expenseData.map(function (data) {
-                    return data.date;
-                }).concat(saleData.map(function (data) {
-                    return data.date;
-                })).filter(function(value, index, self) {
-                    return self.indexOf(value) === index; // Removing duplicates
-                }).sort(); // Sorting the dates
-
-                var expenseAmounts = expenseData.reduce(function (acc, data) {
-                    acc[data.date] = parseFloat(data.amount_spent);
-                    return acc;
-                }, {});
-
-                var saleAmounts = saleData.reduce(function (acc, data) {
-                    acc[data.date] = parseFloat(data.amount_earned);
-                    return acc;
-                }, {});
-
-                var expenseDataset = labels.map(function (date) {
-                    return expenseAmounts[date] || 0;
-                });
-
-                var saleDataset = labels.map(function (date) {
-                    return saleAmounts[date] || 0;
-                });
-
-                // Calculate total spent, total earned, and profit made
-                var totalSpent = expenseDataset.reduce((acc, val) => acc + val, 0);
-                var totalEarned = saleDataset.reduce((acc, val) => acc + val, 0);
-                var profitMade = totalEarned - totalSpent;
-
-                // Update the summary section
-                document.getElementById('totalSpent').innerText = totalSpent.toFixed(2);
-                document.getElementById('totalEarned').innerText = totalEarned.toFixed(2);
-                document.getElementById('profitMade').innerText = profitMade.toFixed(2);
-
-                // Create the chart
-                var comparisonChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Expenses',
-                            data: expenseDataset,
-                            borderColor: '#ff5733',
-                            backgroundColor: 'rgba(255, 87, 51, 0.2)',
-                            borderWidth: 2
-                        }, {
-                            label: 'Sales',
-                            data: saleDataset,
-                            borderColor: '#33c1ff',
-                            backgroundColor: 'rgba(51, 193, 255, 0.2)',
-                            borderWidth: 2
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            x: {
-                                type: 'category',
-                                labels: labels
-                            },
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            });
-        </script>
     </div>
 </body>
 </html>
