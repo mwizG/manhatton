@@ -17,31 +17,40 @@
             const filterValueTextInput = document.getElementById('filter_value_text');
             const filterRangeStartInput = document.getElementById('filter_range_start');
             const filterRangeEndInput = document.getElementById('filter_range_end');
+            const sidebarButton = document.getElementById('sidebarButton');
+            const sidebar = document.getElementById('sidebar');
+            const closeSidebarButton = document.getElementById('closeSidebar');
 
             function updateFilterInputs() {
                 const selectedFilter = filterBySelect.value;
-                filterValueInput.style.display = ['day', 'month', 'year', 'amount_spent', 'amount_earned', 'product', 'item'].includes(selectedFilter) ? 'inline' : 'none';
-                filterValueTextInput.style.display = ['amount_spent', 'amount_earned', 'product', 'item'].includes(selectedFilter) ? 'inline' : 'none';
-                filterRangeStartInput.style.display = filterRangeEndInput.style.display = selectedFilter === 'date_range' ? 'inline' : 'none';
+                filterValueInput.style.display = ['day', 'month', 'year', 'amount_spent', 'amount_earned', 'product', 'item'].includes(selectedFilter) ? 'block' : 'none';
+                filterValueTextInput.style.display = ['amount_spent', 'amount_earned', 'product', 'item'].includes(selectedFilter) ? 'block' : 'none';
+                filterRangeStartInput.style.display = filterRangeEndInput.style.display = selectedFilter === 'date_range' ? 'block' : 'none';
+            }
+
+            function toggleSidebar() {
+                sidebar.classList.toggle('open');
+                sidebarButton.style.display = sidebar.classList.contains('open') ? 'none' : 'block';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                sidebarButton.style.display = 'block';
             }
 
             filterBySelect.addEventListener('change', updateFilterInputs);
             updateFilterInputs();
 
-            // Create the comparison chart
+            sidebarButton.addEventListener('click', toggleSidebar);
+            closeSidebarButton.addEventListener('click', closeSidebar);
+
             const ctx = document.getElementById('comparisonChart').getContext('2d');
             const expenseData = JSON.parse('{{ expense_data|escapejs }}');
             const saleData = JSON.parse('{{ sale_data|escapejs }}');
 
             const labels = [...new Set([...expenseData.map(item => item.date), ...saleData.map(item => item.date)])];
-            const expenses = labels.map(date => {
-                const entry = expenseData.find(e => e.date === date);
-                return entry ? entry.total_spent : 0;
-            });
-            const sales = labels.map(date => {
-                const entry = saleData.find(e => e.date === date);
-                return entry ? entry.total_earned : 0;
-            });
+            const expenses = labels.map(date => (expenseData.find(e => e.date === date) || {}).total_spent || 0);
+            const sales = labels.map(date => (saleData.find(e => e.date === date) || {}).total_earned || 0);
 
             new Chart(ctx, {
                 type: 'bar',
@@ -51,15 +60,15 @@
                         {
                             label: 'Expenses',
                             data: expenses,
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            borderColor: 'rgba(255, 99, 132, 1)',
+                            backgroundColor: 'rgba(144, 238, 144, 0.2)',  // Light green
+                            borderColor: 'rgba(34, 139, 34, 1)',       // Dark green
                             borderWidth: 1
                         },
                         {
                             label: 'Sales',
                             data: sales,
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            borderColor: 'rgba(54, 162, 235, 1)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',  // Light pink
+                            borderColor: 'rgba(255, 99, 132, 1)',       // Dark pink
                             borderWidth: 1
                         }
                     ]
@@ -77,6 +86,41 @@
 </head>
 <body>
     <div class="container">
+        <!-- Hamburger Menu Button -->
+        <div id="sidebarButton" class="hamburger-menu">&#9776;</div>
+
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <button class="close-btn" id="closeSidebar">&times;</button>
+            <h2>Filters</h2>
+            <form id="filterForm" method="get">
+                <select name="filter_by" id="filter_by">
+                    <option value="">Select Filter</option>
+                    <option value="day" {% if filter_by == 'day' %}selected{% endif %}>Day</option>
+                    <option value="month" {% if filter_by == 'month' %}selected{% endif %}>Month</option>
+                    <option value="year" {% if filter_by == 'year' %}selected{% endif %}>Year</option>
+                    <option value="date_range" {% if filter_by == 'date_range' %}selected{% endif %}>Date Range</option>
+                    <option value="amount_spent" {% if filter_by == 'amount_spent' %}selected{% endif %}>Amount Spent</option>
+                    <option value="amount_earned" {% if filter_by == 'amount_earned' %}selected{% endif %}>Amount Earned</option>
+                    <option value="product" {% if filter_by == 'product' %}selected{% endif %}>Product</option>
+                    <option value="item" {% if filter_by == 'item' %}selected{% endif %}>Item</option>
+                </select>
+
+                <input type="date" name="filter_value" id="filter_value" value="{{ filter_value }}">
+                <input type="text" name="filter_value" id="filter_value_text" value="{{ filter_value_text }}">
+                <input type="date" name="filter_range_start" id="filter_range_start" value="{{ filter_range_start }}">
+                <input type="date" name="filter_range_end" id="filter_range_end" value="{{ filter_range_end }}">
+
+                <button type="submit" class="btn btn-primary">Apply Filter</button>
+                <a href="{% url 'logbook:clear_filters' %}" class="btn btn-secondary">Clear Filters</a>
+            </form>
+        </div>
+
+        <div class="chart-section">
+            <h2>Sales vs Expenses</h2>
+            <canvas id="comparisonChart"></canvas>
+        </div>
+
         <div class="summary">
             <div class="summary-item">
                 <h3>Total Spent</h3>
@@ -92,33 +136,11 @@
             </div>
         </div>
 
-        <div class="dropdown">
-            <button class="dropbtn">Filter</button>
-            <div id="filterDropdown" class="dropdown-content">
-                <form id="filterForm" method="get">
-                    <select name="filter_by" id="filter_by">
-                        <option value="">Select Filter</option>
-                        <option value="day" {% if filter_by == 'day' %}selected{% endif %}>Day</option>
-                        <option value="month" {% if filter_by == 'month' %}selected{% endif %}>Month</option>
-                        <option value="year" {% if filter_by == 'year' %}selected{% endif %}>Year</option>
-                        <option value="date_range" {% if filter_by == 'date_range' %}selected{% endif %}>Date Range</option>
-                        <option value="amount_spent" {% if filter_by == 'amount_spent' %}selected{% endif %}>Amount Spent</option>
-                        <option value="amount_earned" {% if filter_by == 'amount_earned' %}selected{% endif %}>Amount Earned</option>
-                        <option value="product" {% if filter_by == 'product' %}selected{% endif %}>Product</option>
-                        <option value="item" {% if filter_by == 'item' %}selected{% endif %}>Item</option>
-                    </select>
-
-                    <input type="date" name="filter_value" id="filter_value" placeholder="Select Date" value="{{ filter_value }}" style="display: none;">
-                    <input type="text" name="filter_value" id="filter_value_text" placeholder="Enter Value" value="{{ filter_value_text }}" style="display: none;">
-                    <input type="date" name="filter_range_start" id="filter_range_start" placeholder="Start Date" value="{{ filter_range_start }}" style="display: none;">
-                    <input type="date" name="filter_range_end" id="filter_range_end" placeholder="End Date" value="{{ filter_range_end }}" style="display: none;">
-
-                    <button type="submit" class="btn btn-primary">Apply Filter</button>
-                    <a href="{% url 'logbook:clear_filters' %}" class="btn btn-secondary">Clear Filters</a>
-                </form>
-            </div>
+        <div class="button-group">
+            <div class="envelope-btn expenses" onclick="showSection('expenses')">Expenses</div>
+            <div class="envelope-btn sales" onclick="showSection('sales')">Sales</div>
         </div>
-
+        
         <div class="section-container">
             <div class="section expenses">
                 <h2>Expenses</h2>
@@ -141,29 +163,35 @@
 
             <div class="section sales">
                 <h2>Sales</h2>
-                <ul class="list">
-                    {% for sale in sales %}
-                        <li class="list-item">
-                            <div class="item-details">
-                                <span class="item-date">{{ sale.date }}</span>
-                                <span class="item-info">{{ sale.product }} - K{{ sale.amount_earned }}</span>
-                            </div>
-                            <div class="actions">
-                                <a href="{% url 'logbook:update_sale' sale.pk %}" class="btn btn-primary">Update</a>
-                                <a href="{% url 'logbook:delete_sale' sale.pk %}" class="btn btn-danger">Delete</a>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
+                    <ul class="list">
+                        {% for sale in sales %}
+                            <li class="list-item">
+                                <div class="item-details">
+                                    <span class="item-date">{{ sale.date }}</span>
+                                    <span class="item-info">{{ sale.product }} - K{{ sale.amount_earned }}</span>
+                                </div>
+                                <div class="actions">
+                                    <a href="{% url 'logbook:update_sale' sale.pk %}" class="btn btn-primary">Update</a>
+                                    <a href="{% url 'logbook:delete_sale' sale.pk %}" class="btn btn-danger">Delete</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 <button class="btn btn-primary" onclick="window.location.href='{% url 'logbook:add_sale' %}'">Add Sale</button>
             </div>
         </div>
-
-        <div class="section">
-            <h2>Sales vs Expenses</h2>
-            <canvas id="comparisonChart" width="800" height="400"></canvas>
-        </div>
     </div>
+
+    <script>
+        function showSection(section) {
+            document.querySelectorAll('.section-container .section').forEach(el => el.style.display = 'none');
+            document.querySelector(`.section.${section}`).style.display = 'block';
+
+            document.querySelectorAll('.button-group .envelope-btn').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.button-group .envelope-btn.${section}`).classList.add('active');
+        }
+        showSection('expenses');
+    </script>
 </body>
-</html>
+</html
 {% endblock %}
