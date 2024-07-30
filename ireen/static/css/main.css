@@ -4,40 +4,38 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
-    background-color: #f4f4f4;
+    background-color: #eaf2e5; /* Light green background for a fresh look */
 }
 
+/* Header styles */
 header {
     background-color: #4CAF50; /* Farm green */
     color: white;
-    padding: 10px 20px; /* Adjust padding for better spacing */
-    text-align: center;
-    position: relative;
+    padding: 15px 20px; /* Increased padding for a more spacious header */
     display: flex;
-    align-items: center; /* Center items vertically */
-    justify-content: space-between; /* Space out hamburger and title */
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
 }
 
-header h2{
-    margin: 0; /* Remove default margin */
-    font-size: 1.2em; /* Adjust font size to be smaller */
-    flex: 1; /* Take up available space */
-    text-align: center; /* Center the text */
-     /* Makes the text cursive */
+header h2 {
+    margin: 0;
+    font-size: 1.5em; /* Larger font size for better visibility */
+    font-style: italic; /* Cursive text */
+    text-align: center;
+    flex: 1;
 }
 
-.cursive-heading {
-    font-style: italic; /* Makes the text cursive */
-}
+
+
+/* Hamburger menu */
 .hamburger {
-    display: block;
     cursor: pointer;
     width: 30px;
     height: 30px;
     position: absolute;
-    top: 15px;
-    left: 20px; /* Adjust the position */
-    z-index: 1; /* Ensure it's above other content */
+
+    left: 20px;
 }
 
 .hamburger div {
@@ -46,11 +44,7 @@ header h2{
     margin: 6px 0;
 }
 
-/* Show the menu when the hamburger is clicked */
-nav ul.active {
-    display: block;
-}
-
+/* Navigation styles */
 nav {
     background-color: #3E8E41; /* Darker green for sidebar */
     color: white;
@@ -63,29 +57,34 @@ nav ul {
     display: none; /* Hide menu by default */
 }
 
+nav ul.active {
+    display: block; /* Show menu when active */
+}
+
 nav ul li {
-    margin: 10px 0;
+    margin: 0; /* Remove margin for a cleaner look */
 }
 
 nav ul li a {
     color: white;
     text-decoration: none;
     display: block;
-    padding: 10px;
-    background-color: transparent; /* Ensure no background color */
+    padding: 15px 20px; /* Increased padding for better click area */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
 }
 
 nav ul li a:hover {
     background-color: #45a049; /* Lighter green for hover */
 }
 
+/* Main content styles */
 main {
     padding: 20px;
     margin: 20px;
     background-color: white;
     border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for a clean effect */
 }
-
 /* Footer styles */
 footer {
     background-color: #3E8E41; /* Match sidebar color */

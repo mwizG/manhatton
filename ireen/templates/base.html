@@ -12,6 +12,16 @@
             navUl.classList.toggle('active');
         }
     </script>
+
+
+<script>
+    function toggleMenu() {
+        const navUl = document.getElementById('nav-ul');
+        const headerText = document.querySelector('header h2');
+        navUl.classList.toggle('active');
+        headerText.classList.toggle('hide-on-menu');
+    }
+</script>
 </head>
 <body>
     <header>
@@ -20,7 +30,7 @@
             <div></div>
             <div></div>
         </div>
-        <h2 class="cursive-heading">Ireen</h2>
+        <h2>Ireen</h2>
         <nav>
             <ul id="nav-ul">
                 <li><a href="{% url 'logbook:logbook' %}">Log Book</a></li>
@@ -44,8 +54,5 @@
         <!-- Main content will be inserted here -->
         {% endblock %}
     </main>
-    <!-- <footer>
-        <p>&copy; 2024 IREEN</p>
-    </footer> -->
 </body>
 </html>
