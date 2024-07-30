@@ -10,6 +10,9 @@ body {
     font-family: Arial, sans-serif;
     position: relative;
     margin-right: 0; /* No margin for sidebar, adjust dynamically with JavaScript */
+
+    grid-template-columns: 1fr ; /* Sidebar and content for medium screens */
+
 }
 
 
@@ -131,11 +134,17 @@ input[type="text"] {
     font-size: 24px;
     cursor: pointer;
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 10px;
+    right: 10px;
     z-index: 2;
     transition: opacity 0.3s ease;
 }
+
+
+
+
+
+
 
 /* Chart section */
 .chart-section {

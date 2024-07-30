@@ -15,12 +15,12 @@
 </head>
 <body>
     <header>
-        <h1>.</h1>
         <div class="hamburger" onclick="toggleMenu()">
             <div></div>
             <div></div>
             <div></div>
         </div>
+        <h2 class="cursive-heading">Ireen</h2>
         <nav>
             <ul id="nav-ul">
                 <li><a href="{% url 'logbook:logbook' %}">Log Book</a></li>
@@ -38,13 +38,14 @@
             </ul>
         </nav>
     </header>
+    
     <main>
         {% block content %}
         <!-- Main content will be inserted here -->
         {% endblock %}
     </main>
-    <footer>
+    <!-- <footer>
         <p>&copy; 2024 IREEN</p>
-    </footer>
+    </footer> -->
 </body>
 </html>

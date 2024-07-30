@@ -60,15 +60,17 @@
                         {
                             label: 'Expenses',
                             data: expenses,
-                            backgroundColor: 'rgba(144, 238, 144, 0.2)',  // Light green
-                            borderColor: 'rgba(34, 139, 34, 1)',       // Dark green
+                            
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',  // Light pink
+                            
+                            borderColor: 'rgba(255, 99, 132, 1)',       // Dark pink
                             borderWidth: 1
                         },
                         {
                             label: 'Sales',
                             data: sales,
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',  // Light pink
-                            borderColor: 'rgba(255, 99, 132, 1)',       // Dark pink
+                            backgroundColor: 'rgba(144, 238, 144, 0.2)',  // Light green
+                            borderColor: 'rgba(34, 139, 34, 1)',       // Dark green
                             borderWidth: 1
                         }
                     ]
@@ -102,12 +104,12 @@
                     <option value="date_range" {% if filter_by == 'date_range' %}selected{% endif %}>Date Range</option>
                     <option value="amount_spent" {% if filter_by == 'amount_spent' %}selected{% endif %}>Amount Spent</option>
                     <option value="amount_earned" {% if filter_by == 'amount_earned' %}selected{% endif %}>Amount Earned</option>
-                    <option value="product" {% if filter_by == 'product' %}selected{% endif %}>Product</option>
-                    <option value="item" {% if filter_by == 'item' %}selected{% endif %}>Item</option>
+                    <option value="product" {% if filter_by == 'product' %}selected{% endif %}>Product sold</option>
+                    <option value="item" {% if filter_by == 'item' %}selected{% endif %}>product bought</option>
                 </select>
 
                 <input type="date" name="filter_value" id="filter_value" value="{{ filter_value }}">
-                <input type="text" name="filter_value" id="filter_value_text" value="{{ filter_value_text }}">
+                <input type="text" name="filter_value" id="filter_value_text"  placeholder='enter product'value="{{ filter_value_text }}">
                 <input type="date" name="filter_range_start" id="filter_range_start" value="{{ filter_range_start }}">
                 <input type="date" name="filter_range_end" id="filter_range_end" value="{{ filter_range_end }}">
 
@@ -140,7 +142,7 @@
             <div class="envelope-btn expenses" onclick="showSection('expenses')">Expenses</div>
             <div class="envelope-btn sales" onclick="showSection('sales')">Sales</div>
         </div>
-        
+
         <div class="section-container">
             <div class="section expenses">
                 <h2>Expenses</h2>
