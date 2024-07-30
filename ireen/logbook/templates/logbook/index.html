@@ -221,7 +221,7 @@
                         <li class="list-item">
                             <div class="item-details">
                                 <span class="item-date">{{ expense.date }}</span>
-                                <span class="item-info">{{ expense.item }} - K{{ expense.amount_spent }}</span>
+                                <span class="item-info">{{ expense.item }} - K{{ expense.amount_spent }}{% if expense.quantity %} - Quantity: {{ expense.quantity }}{% endif %}</span>  <!-- Display quantity if available -->
                             </div>
                             <div class="actions">
                                 <a href="{% url 'logbook:update_expense' expense.pk %}" class="btn btn-primary">Update</a>
@@ -232,7 +232,7 @@
                 </ul>
                 <button class="btn btn-primary" onclick="window.location.href='{% url 'logbook:add_expense' %}'">Add Expense</button>
             </div>
-
+            
             <div class="section sales">
                 <h2>Sales</h2>
                 <ul class="list">
@@ -240,7 +240,7 @@
                         <li class="list-item">
                             <div class="item-details">
                                 <span class="item-date">{{ sale.date }}</span>
-                                <span class="item-info">{{ sale.product }} - K{{ sale.amount_earned }}</span>
+                                <span class="item-info">{{ sale.product }} - K{{ sale.amount_earned }}{% if sale.quantity %} - Quantity: {{ sale.quantity }}{% endif %}</span>  <!-- Display quantity if available -->
                             </div>
                             <div class="actions">
                                 <a href="{% url 'logbook:update_sale' sale.pk %}" class="btn btn-primary">Update</a>
@@ -251,6 +251,7 @@
                 </ul>
                 <button class="btn btn-primary" onclick="window.location.href='{% url 'logbook:add_sale' %}'">Add Sale</button>
             </div>
+            
         </div>
     </div>
 </body>
