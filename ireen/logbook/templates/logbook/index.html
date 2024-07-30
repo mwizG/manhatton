@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="{% static 'logbook.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        // Ensure the DOM is fully loaded before executing the script
         document.addEventListener('DOMContentLoaded', function() {
+            // Cache DOM elements for efficiency
             const filterBySelect = document.getElementById('filter_by');
             const filterValueInputMin = document.getElementById('filter_value_min');
             const filterValueInputMax = document.getElementById('filter_value_max');
@@ -21,15 +23,19 @@
             const sidebarButton = document.getElementById('sidebarButton');
             const sidebar = document.getElementById('sidebar');
             const closeSidebarButton = document.getElementById('closeSidebar');
-
+    
+            // Function to update filter inputs based on the selected filter type
             function updateFilterInputs() {
                 const selectedFilter = filterBySelect.value;
+                
+                // Hide all filter inputs initially
                 filterValueInputMin.style.display = 'none';
                 filterValueInputMax.style.display = 'none';
                 filterValueTextInput.style.display = 'none';
                 filterRangeStartInput.style.display = 'none';
                 filterRangeEndInput.style.display = 'none';
-
+    
+                // Show relevant filter inputs based on the selected filter type
                 if (selectedFilter === 'amount_spent' || selectedFilter === 'amount_earned') {
                     filterValueInputMin.style.display = 'block';
                     filterValueInputMax.style.display = 'block';
@@ -42,40 +48,49 @@
                     filterRangeEndInput.style.display = 'block';
                 }
             }
-
+    
+            // Function to toggle the sidebar open and closed
             function toggleSidebar() {
                 sidebar.classList.toggle('open');
+                // Hide or show the sidebar button based on the sidebar state
                 sidebarButton.style.display = sidebar.classList.contains('open') ? 'none' : 'block';
             }
-
+    
+            // Function to close the sidebar
             function closeSidebar() {
                 sidebar.classList.remove('open');
                 sidebarButton.style.display = 'block';
             }
-
+    
+            // Attach event listeners
             filterBySelect.addEventListener('change', updateFilterInputs);
-            updateFilterInputs();
-
             sidebarButton.addEventListener('click', toggleSidebar);
             closeSidebarButton.addEventListener('click', closeSidebar);
-
+    
+            // Initialize the filter inputs based on the default filter selection
+            updateFilterInputs();
+    
+            // Setup Chart.js to display expenses vs sales data
             const ctx = document.getElementById('comparisonChart').getContext('2d');
             const expenseData = JSON.parse('{{ expense_data|escapejs }}');
             const saleData = JSON.parse('{{ sale_data|escapejs }}');
-
+    
+            // Extract and sort unique dates from expense and sale data
             const labels = [...new Set([...expenseData.map(item => item.date), ...saleData.map(item => item.date)])];
             labels.sort((a, b) => new Date(a) - new Date(b));
-
+    
+            // Prepare expenses and sales data for Chart.js
             const expenses = labels.map(date => {
                 const expense = expenseData.find(e => e.date === date);
                 return expense ? expense.total_spent : 0;
             });
-
+    
             const sales = labels.map(date => {
                 const sale = saleData.find(s => s.date === date);
                 return sale ? sale.total_earned : 0;
             });
-
+    
+            // Create the Chart.js line chart
             new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -117,29 +132,33 @@
                     }
                 }
             });
-
+    
+            // Function to show the selected section and hide others
             function showSection(section) {
                 const sections = document.querySelectorAll('.section-container .section');
                 sections.forEach(sec => {
                     sec.style.display = (sec.classList.contains(section)) ? 'block' : 'none';
                 });
+                
+                // Update button states to reflect the active section
                 const buttons = document.querySelectorAll('.button-group .envelope-btn');
                 buttons.forEach(btn => {
                     btn.classList.toggle('active', btn.classList.contains(section));
                 });
             }
-
-            // Initialize the display to show expenses section by default
+    
+            // Initialize the display to show the expenses section by default
             showSection('expenses');
-
+    
             // Event listener for section toggle buttons
             const expenseButton = document.querySelector('.button-group .expenses');
             const salesButton = document.querySelector('.button-group .sales');
-
+    
             expenseButton.addEventListener('click', () => showSection('expenses'));
             salesButton.addEventListener('click', () => showSection('sales'));
         });
     </script>
+    
 </head>
 <body>
     <div class="container">
@@ -202,7 +221,7 @@
                         <li class="list-item">
                             <div class="item-details">
                                 <span class="item-date">{{ expense.date }}</span>
-                                <span class="item-info">{{ expense.item }} - K{{ expense.amount_spent }}</span>
+                                <span class="item-info">{{ expense.item }} - K{{ expense.amount_spent }}{% if expense.quantity %} - Quantity: {{ expense.quantity }}{% endif %}</span>  <!-- Display quantity if available -->
                             </div>
                             <div class="actions">
                                 <a href="{% url 'logbook:update_expense' expense.pk %}" class="btn btn-primary">Update</a>
@@ -213,7 +232,7 @@
                 </ul>
                 <button class="btn btn-primary" onclick="window.location.href='{% url 'logbook:add_expense' %}'">Add Expense</button>
             </div>
-
+            
             <div class="section sales">
                 <h2>Sales</h2>
                 <ul class="list">
@@ -221,7 +240,7 @@
                         <li class="list-item">
                             <div class="item-details">
                                 <span class="item-date">{{ sale.date }}</span>
-                                <span class="item-info">{{ sale.product }} - K{{ sale.amount_earned }}</span>
+                                <span class="item-info">{{ sale.product }} - K{{ sale.amount_earned }}{% if sale.quantity %} - Quantity: {{ sale.quantity }}{% endif %}</span>  <!-- Display quantity if available -->
                             </div>
                             <div class="actions">
                                 <a href="{% url 'logbook:update_sale' sale.pk %}" class="btn btn-primary">Update</a>
@@ -232,6 +251,7 @@
                 </ul>
                 <button class="btn btn-primary" onclick="window.location.href='{% url 'logbook:add_sale' %}'">Add Sale</button>
             </div>
+            
         </div>
     </div>
 </body>
