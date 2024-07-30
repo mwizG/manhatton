@@ -53,36 +53,47 @@
             const sales = labels.map(date => (saleData.find(e => e.date === date) || {}).total_earned || 0);
 
             new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Expenses',
-                            data: expenses,
-                            
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',  // Light pink
-                            
-                            borderColor: 'rgba(255, 99, 132, 1)',       // Dark pink
-                            borderWidth: 1
-                        },
-                        {
-                            label: 'Sales',
-                            data: sales,
-                            backgroundColor: 'rgba(144, 238, 144, 0.2)',  // Light green
-                            borderColor: 'rgba(34, 139, 34, 1)',       // Dark green
-                            borderWidth: 1
-                        }
-                    ]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Expenses',
+                data: expenses,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',  // Light pink
+                borderColor: 'rgba(255, 99, 132, 1)',       // Dark pink
+                borderWidth: 2,
+                fill: false // Set to true to fill the area under the line
+            },
+            {
+                label: 'Sales',
+                data: sales,
+                backgroundColor: 'rgba(144, 238, 144, 0.2)',  // Light green
+                borderColor: 'rgba(34, 139, 34, 1)',       // Dark green
+                borderWidth: 2,
+                fill: false
+            }
+        ]
+    },
+    options: {
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Date'
                 }
-            });
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Amount'
+                },
+                beginAtZero: true
+            }
+        }
+    }
+});
+
         });
     </script>
 </head>
