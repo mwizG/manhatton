@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'logbook.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-       document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             const filterBySelect = document.getElementById('filter_by');
             const filterValueInputMin = document.getElementById('filter_value_min');
             const filterValueInputMax = document.getElementById('filter_value_max');
@@ -24,30 +24,22 @@
 
             function updateFilterInputs() {
                 const selectedFilter = filterBySelect.value;
+                filterValueInputMin.style.display = 'none';
+                filterValueInputMax.style.display = 'none';
+                filterValueTextInput.style.display = 'none';
+                filterRangeStartInput.style.display = 'none';
+                filterRangeEndInput.style.display = 'none';
+
                 if (selectedFilter === 'amount_spent' || selectedFilter === 'amount_earned') {
                     filterValueInputMin.style.display = 'block';
                     filterValueInputMax.style.display = 'block';
-                    filterValueTextInput.style.display = 'none';
-                    filterRangeStartInput.style.display = 'none';
-                    filterRangeEndInput.style.display = 'none';
                 } else if (selectedFilter === 'product' || selectedFilter === 'item') {
-                    filterValueInputMin.style.display = 'none';
-                    filterValueInputMax.style.display = 'none';
                     filterValueTextInput.style.display = 'block';
                     filterRangeStartInput.style.display = 'block';
                     filterRangeEndInput.style.display = 'block';
                 } else if (selectedFilter === 'date_range') {
-                    filterValueInputMin.style.display = 'none';
-                    filterValueInputMax.style.display = 'none';
-                    filterValueTextInput.style.display = 'none';
                     filterRangeStartInput.style.display = 'block';
                     filterRangeEndInput.style.display = 'block';
-                } else {
-                    filterValueInputMin.style.display = 'none';
-                    filterValueInputMax.style.display = 'none';
-                    filterValueTextInput.style.display = 'none';
-                    filterRangeStartInput.style.display = 'none';
-                    filterRangeEndInput.style.display = 'none';
                 }
             }
 
@@ -126,6 +118,26 @@
                 }
             });
 
+            function showSection(section) {
+                const sections = document.querySelectorAll('.section-container .section');
+                sections.forEach(sec => {
+                    sec.style.display = (sec.classList.contains(section)) ? 'block' : 'none';
+                });
+                const buttons = document.querySelectorAll('.button-group .envelope-btn');
+                buttons.forEach(btn => {
+                    btn.classList.toggle('active', btn.classList.contains(section));
+                });
+            }
+
+            // Initialize the display to show expenses section by default
+            showSection('expenses');
+
+            // Event listener for section toggle buttons
+            const expenseButton = document.querySelector('.button-group .expenses');
+            const salesButton = document.querySelector('.button-group .sales');
+
+            expenseButton.addEventListener('click', () => showSection('expenses'));
+            salesButton.addEventListener('click', () => showSection('sales'));
         });
     </script>
 </head>
@@ -139,7 +151,6 @@
             <form id="filterForm" method="get">
                 <select name="filter_by" id="filter_by">
                     <option value="">Select Filter</option>
-                    <!-- <option value="year" {% if filter_by == 'year' %}selected{% endif %}>Year</option> -->
                     <option value="amount_spent" {% if filter_by == 'amount_spent' %}selected{% endif %}>Amount Spent</option>
                     <option value="amount_earned" {% if filter_by == 'amount_earned' %}selected{% endif %}>Amount Earned</option>
                     <option value="product" {% if filter_by == 'product' %}selected{% endif %}>Product sold</option>
@@ -149,7 +160,7 @@
 
                 <input type="number" name="filter_value_min" id="filter_value_min" placeholder="Min amount" value="{{ filter_value_min }}" style="display:none;">
                 <input type="number" name="filter_value_max" id="filter_value_max" placeholder="Max amount" value="{{ filter_value_max }}" style="display:none;">
-                <input type="text" name="filter_value" id="filter_value_text" placeholder="Enter product" value="{{ filter_value_text }}" style="display:none;">
+                <input type="text" name="filter_value" id="filter_value_text" placeholder="Enter product" value="{{ filter_value }}" style="display:none;">
                 <input type="date" name="filter_range_start" id="filter_range_start" placeholder="Start date" value="{{ filter_range_start }}" style="display:none;">
                 <input type="date" name="filter_range_end" id="filter_range_end" placeholder="End date" value="{{ filter_range_end }}" style="display:none;">
 
@@ -225,4 +236,4 @@
     </div>
 </body>
 </html>
-{%endblock%}
+{% endblock %}
