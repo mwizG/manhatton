@@ -41,14 +41,19 @@ def logbook_home(request):
         elif filter_by == 'amount_earned' and filter_value_min and filter_value_max:
             # Filter by amount earned
             sales = sales.filter(amount_earned__gte=float(filter_value_min), amount_earned__lte=float(filter_value_max))  # Filter sales by amount range
-        elif filter_by in ['product', 'item'] and filter_value and filter_range_start and filter_range_end:
-            # Filter by product or item within a date range
+        elif filter_by in ['product', 'item','category'] and filter_value and filter_range_start and filter_range_end:
+            # Filter by product or item or category within a date range
             start_date = datetime.strptime(filter_range_start, '%Y-%m-%d').date()  # Convert start date to date object
             end_date = datetime.strptime(filter_range_end, '%Y-%m-%d').date()  # Convert end date to date object
             if filter_by == 'product':
                 sales = sales.filter(product__icontains=filter_value, date__range=[start_date, end_date])  # Filter sales by product and date range
             elif filter_by == 'item':
                 expenses = expenses.filter(item__icontains=filter_value, date__range=[start_date, end_date])  # Filter expenses by item and date range
+           
+            elif filter_by == 'category':
+                expenses = expenses.filter(category__icontains=filter_value, date__range=[start_date, end_date]) 
+                sales = sales.filter(category__icontains=filter_value, date__range=[start_date, end_date])
+        
         elif filter_by == 'date_range' and filter_range_start and filter_range_end:
             # Filter by date range
             start_date = datetime.strptime(filter_range_start, '%Y-%m-%d').date()  # Convert start date to date object
