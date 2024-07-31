@@ -1,0 +1,78 @@
+/* suggest.css */
+
+/* Base styles */
+body.suggest-body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8f5; /* Light green background */
+    color: #333;
+}
+
+/* Page header */
+.suggest-container h1 {
+    color: #2e8b57; /* Dark green for main heading */
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2.5em;
+}
+
+/* List styles */
+.suggest-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.suggest-container li {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border: 1px solid #ccc;
+}
+
+.suggest-container li strong {
+    color: #3a6b4d; /* Slightly darker green for strong text */
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Links */
+.suggest-container a {
+    color: #2e8b57; /* Dark green for links */
+    text-decoration: none;
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border: 1px solid #2e8b57;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.suggest-container a:hover {
+    background-color: #2e8b57; /* Dark green background on hover */
+    color: white; /* White text on hover */
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .suggest-container h1 {
+        font-size: 2em;
+    }
+
+    .suggest-container ul {
+        padding: 0 10px;
+    }
+
+    .suggest-container li {
+        padding: 10px;
+    }
+
+    .suggest-container a {
+        margin: 10px auto;
+        padding: 8px 16px;
+    }
+}

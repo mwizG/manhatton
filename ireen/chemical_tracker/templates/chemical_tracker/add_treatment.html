@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Treatment{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'super.css' %}">
+    <title>Add Treatment</title>
+</head>
+<body>
+    <h1>Add Treatment</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'chemicaltracker:chemicalT' %}">Back to List</a>
+</body>
+</html>
+{% endblock %}
+

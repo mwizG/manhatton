@@ -1,0 +1,85 @@
+/* tracker.css */
+
+/* Base styles for Chemical Tracker */
+.chemical-tracker-body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8f5; /* Light green background */
+    color: #333;
+}
+
+/* Page header */
+.chemical-tracker h1 {
+    color: #2e8b57; /* Dark green for main heading */
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2.5em;
+}
+
+.chemical-tracker h2 {
+    color: #3a6b4d; /* Slightly darker green for subheadings */
+    margin-left: 20px;
+    font-size: 2em;
+}
+
+/* Lists */
+.chemical-tracker ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px;
+}
+
+.chemical-tracker li {
+    background-color: white;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Span inside li */
+.chemical-tracker li span {
+    flex-grow: 1;
+}
+
+/* Links */
+.chemical-tracker a {
+    color: #2e8b57; /* Dark green for links */
+    text-decoration: none;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+}
+
+.chemical-tracker a:hover {
+    color: #45a049; /* Lighter green on hover */
+}
+
+/* Div inside li for links */
+.chemical-tracker li div {
+    display: flex;
+    gap: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .chemical-tracker h1 {
+        font-size: 2em;
+    }
+
+    .chemical-tracker h2 {
+        font-size: 1.5em;
+    }
+
+    .chemical-tracker li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .chemical-tracker li div {
+        margin-top: 10px;
+    }
+}

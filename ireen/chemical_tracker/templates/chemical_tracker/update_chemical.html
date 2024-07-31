@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Farm Management System{% endblock %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Chemical</title>
+    <link rel="stylesheet" href="{% static 'super.css' %}">
+</head>
+<body class="form-body">
+    <div class="form-container">
+        <h1>Update Chemical</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save Changes</button>
+        </form>
+        <div>
+            <a href="{% url 'chemicaltracker:chemical_detail' form.instance.pk %}">Back to Details</a>
+        </div>
+        <div>
+         <a href="{% url 'chemicaltracker:chemicalT' %}">Back to List</a>   
+        </div>
+        
+    </div>
+</body>
+</html>
+{% endblock %}

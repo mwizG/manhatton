@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Suggested Chemical Applications{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'suggest.css' %}">
+    <title>Suggested Chemical Applications</title>
+</head>
+<body class="suggest-body">
+    <div class="suggest-container">
+        <h1>Suggested Chemical Applications</h1>
+        <ul>
+            {% for suggestion in suggestions %}
+            <li>
+                <strong>Chemical:</strong> {{ suggestion.chemical.name }}<br>
+                <strong>Plant:</strong> {{ suggestion.plant }}<br>
+                <strong>Illness:</strong> {{ suggestion.illness }}<br>
+                <strong>Success Rate:</strong> {{ suggestion.success_rate|floatformat:2 }}<br>
+                <strong>Minor Result Rate:</strong> {{ suggestion.minor_result_rate|floatformat:2 }}<br>
+            </li>
+            {% empty %}
+            <li>No suggestions available.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'chemicaltracker:chemicalT' %}">Back to List</a>
+    </div>
+</body>
+</html>
+{% endblock %}
+
