@@ -1,22 +1,16 @@
-
 {% extends 'base.html' %}
 
 {% block title %}Farm Management System{% endblock %}
 
 {% block content %}
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Sale</title>
-</head>
-<body>
+{% load static %}
+    <link rel="stylesheet" href="{% static 'form.css' %}">
+<div class="container">
     <h1>Add Sale</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Add Sale</button>
     </form>
-</body>
-</html>
+</div>
 {% endblock %}
