@@ -39,7 +39,7 @@
                 if (selectedFilter === 'amount_spent' || selectedFilter === 'amount_earned') {
                     filterValueInputMin.style.display = 'block';
                     filterValueInputMax.style.display = 'block';
-                } else if (selectedFilter === 'product' || selectedFilter === 'item') {
+                } else if (selectedFilter === 'product' || selectedFilter === 'item' || selectedFilter === 'category') {
                     filterValueTextInput.style.display = 'block';
                     filterRangeStartInput.style.display = 'block';
                     filterRangeEndInput.style.display = 'block';
@@ -174,6 +174,7 @@
                     <option value="amount_earned" {% if filter_by == 'amount_earned' %}selected{% endif %}>Amount Earned</option>
                     <option value="product" {% if filter_by == 'product' %}selected{% endif %}>Product sold</option>
                     <option value="item" {% if filter_by == 'item' %}selected{% endif %}>Product bought</option>
+                    <option value="category" {% if filter_by == 'category' %}selected{% endif %}>Category</option>
                     <option value="date_range" {% if filter_by == 'date_range' %}selected{% endif %}>Date Range</option>
                 </select>
 
@@ -221,7 +222,7 @@
                         <li class="list-item">
                             <div class="item-details">
                                 <span class="item-date">{{ expense.date }}</span>
-                                <span class="item-info">{{ expense.item }} - K{{ expense.amount_spent }}{% if expense.quantity %} - Quantity: {{ expense.quantity }}{% endif %}</span>  <!-- Display quantity if available -->
+                                <span class="item-info">{{ expense.item }} - K{{ expense.amount_spent }}{% if expense.quantity %} - Quantity: {{ expense.quantity }} - Category: {{expense.category }}{% endif %}</span>  <!-- Display quantity if available -->
                             </div>
                             <div class="actions">
                                 <a href="{% url 'logbook:update_expense' expense.pk %}" class="btn btn-primary">Update</a>
@@ -240,7 +241,7 @@
                         <li class="list-item">
                             <div class="item-details">
                                 <span class="item-date">{{ sale.date }}</span>
-                                <span class="item-info">{{ sale.product }} - K{{ sale.amount_earned }}{% if sale.quantity %} - Quantity: {{ sale.quantity }}{% endif %}</span>  <!-- Display quantity if available -->
+                                <span class="item-info">{{ sale.product }} - K{{ sale.amount_earned }}{% if sale.quantity %} - Quantity: {{ sale.quantity }} - Category: {{sale.category }}{% endif %}</span>  <!-- Display quantity if available -->
                             </div>
                             <div class="actions">
                                 <a href="{% url 'logbook:update_sale' sale.pk %}" class="btn btn-primary">Update</a>

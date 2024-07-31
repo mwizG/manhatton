@@ -3,19 +3,14 @@
 {% block title %}Farm Management System{% endblock %}
 
 {% block content %}
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Expense</title>
-</head>
-<body>
+{% load static %}
+    <link rel="stylesheet" href="{% static 'form.css' %}">
+<div class="container">
     <h1>Add Expense</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Add Expense</button>
     </form>
-</body>
-</html>
+</div>
 {% endblock %}
