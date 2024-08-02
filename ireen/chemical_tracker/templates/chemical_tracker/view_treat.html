@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}View Treatments{% endblock %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Treatments</title>
+    <link rel="stylesheet" href="{% static 'view_treats.css' %}">
+</head>
+<body class="view-treatments-body">
+    <div class="view-treatments-container">
+        <h1>Treatments Overview</h1>
+        
+        <div class="plants-container">
+            <h2>Plants and Animals undergoing Treatment</h2>
+            <div class="plants-grid">
+                {% for plant in plants %}
+                    <div class="plant-item">
+                        <a href="{% url 'chemicaltracker:plant_details' plant_name=plant %}">{{ plant }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="treatments-container">
+            <h2>All Treatments</h2>
+            <ul>
+                {% for treatment in treatments %}
+                    <li class="treatment-window">
+                        <p><strong>Chemical:</strong> {{ treatment.chemical.name }}</p>
+                        <p><strong>Plant/Animal:</strong> {{ treatment.plant }}</p>
+                        <p><strong>Illness:</strong> {{ treatment.illness }}</p>
+                        <p><strong>Treatment Date:</strong> {{ treatment.treatment_date }}</p>
+                        <p><strong>Result:</strong> {{ treatment.result }}</p>
+                        <p><strong>Preventative:</strong> {% if treatment.is_preventative %} Yes {% else %} No {% endif %}</p>
+                        <p><strong>Duration (Days):</strong> {{ treatment.duration_days }}</p>
+                        <p><strong>Times Per Week:</strong> {{ treatment.times_per_week }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

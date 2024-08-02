@@ -1,20 +1,20 @@
 # chemical_tracker/forms.py
 from django import forms
-from .models import Chemical, ChemicalApplication, Recommendation, Treatment
+from .models import Chemical, Recommendation, Treatment,TreatmentProgress
 
 class ChemicalForm(forms.ModelForm):
     class Meta:
         model = Chemical
         fields = ['name', 'active_ingredient', 'usage_instructions', 'associated_products']
 
-class ChemicalApplicationForm(forms.ModelForm):
+""" class ChemicalApplicationForm(forms.ModelForm):
     class Meta:
         model = ChemicalApplication
         fields = ['chemical', 'application_date', 'result', 'is_preventative']
         widgets = {
             'application_date': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'})
         }
-
+ """
 class RecommendationForm(forms.ModelForm):
     RESULT_CHOICES = [
         ('success', 'Success'),
@@ -36,8 +36,20 @@ class RecommendationForm(forms.ModelForm):
 
 class TreatmentForm(forms.ModelForm):
     class Meta:
+      
         model = Treatment
-        fields = ['plant', 'illness', 'chemical', 'treatment_date']
+        fields = ['chemical', 'plant', 'illness', 'treatment_date','is_preventative', 'duration_days', 'times_per_week']
         widgets = {
             'treatment_date': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'})
         }
+
+class TreatmentProgressForm(forms.ModelForm):
+    class Meta:
+        model = TreatmentProgress
+        fields = ['date', 'details']
+        widgets = {
+            'date': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'})
+        }
+
+class FinalResultForm(forms.Form):
+    final_result = forms.CharField(widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'Enter the final result of the treatment'}))

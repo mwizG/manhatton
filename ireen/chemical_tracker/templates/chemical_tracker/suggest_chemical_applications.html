@@ -17,10 +17,11 @@
             {% for suggestion in suggestions %}
             <li>
                 <strong>Chemical:</strong> {{ suggestion.chemical.name }}<br>
-                <strong>Plant:</strong> {{ suggestion.plant }}<br>
+                <strong style="font-style: italic;">active ingredient:</strong> ({{ suggestion.chemical.active_ingredient }})<br>
+                <strong>Plant/Animal:</strong> {{ suggestion.plant }}<br>
                 <strong>Illness:</strong> {{ suggestion.illness }}<br>
-                <strong>Success Rate:</strong> {{ suggestion.success_rate|floatformat:2 }}<br>
-                <strong>Minor Result Rate:</strong> {{ suggestion.minor_result_rate|floatformat:2 }}<br>
+                <strong>Success Rate(%):</strong> {{ suggestion.success_rate|floatformat:2 }}<br>
+                <strong>Minor Results Rate(%):</strong> {{ suggestion.minor_result_rate|floatformat:2 }}<br>
             </li>
             {% empty %}
             <li>No suggestions available.</li>

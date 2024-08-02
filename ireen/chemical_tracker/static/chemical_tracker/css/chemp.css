@@ -1,0 +1,86 @@
+/* Base styles */
+body.chemical-plan-body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8f5; /* Light green background */
+    color: #333;
+}
+
+/* Container for the chemical plan page */
+.chemical-plan-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Page header */
+.chemical-plan-container h1 {
+    color: #2e8b57; /* Dark green for main heading */
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2.5em;
+}
+
+/* List of chemical applications */
+.chemical-plan-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.chemical-plan-container li {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Paragraph styles within each entry */
+.chemical-plan-container p {
+    margin: 10px 0;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.chemical-plan-container p strong {
+    color: #3a6b4d; /* Slightly darker green for strong text */
+}
+
+/* Links */
+.chemical-plan-container a {
+    color: #2e8b57; /* Dark green for links */
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 1px solid #2e8b57;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.chemical-plan-container a:hover {
+    background-color: #2e8b57; /* Dark green background on hover */
+    color: white; /* White text on hover */
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .chemical-plan-container h1 {
+        font-size: 2em;
+    }
+
+    .chemical-plan-container p {
+        font-size: 1em;
+    }
+
+    .chemical-plan-container a {
+        margin-top: 15px;
+        padding: 8px 16px;
+    }
+}

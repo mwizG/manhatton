@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Plant Details{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'plant_details.css' %}">
+
+<div class="plant-details-container">
+    <h1>Plant Details - {{ plant }}</h1>
+
+<!-- Treatment Overview -->
+  <section class="treatment-overview">
+    <h2>Treatment Overview</h2>
+    {% if treatment_progress %}
+        {% for treatment in treatment_progress %}
+            <div class="treatment-window">
+                <h3>Treatment Details</h3>
+                <p><strong>Chemical:</strong> {{ treatment.treatment.chemical.name }}</p>
+                <p><strong>Active Ingredient:</strong> {{ treatment.treatment.chemical.active_ingredient }}</p>
+                <p><strong>Usage Instructions:</strong> {{ treatment.treatment.chemical.usage_instructions }}</p>
+                <p><strong>Duration:</strong> {{ treatment.treatment.duration_days }} days</p>
+                <p><strong>Time per Week:</strong> {{ treatment.treatment.times_per_week }} times</p>
+                {% if treatment.treatment.final_result %}
+                    <p><strong>Final Result:</strong> {{ treatment.treatment.final_result }}</p>
+                {% else %}
+                    <p><a href="#" onclick="document.getElementById('final_result_form').style.display='block';">Add Final Result</a></p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No treatments found for this plant.</p>
+    {% endif %}
+</section>
+
+    <!-- Treatment Progress -->
+    <section class="treatment-progress">
+        <h2>Treatment Progress</h2>
+        {% if treatment_progress %}
+            {% for progress in treatment_progress %}
+                <div class="progress-window">
+                    <p><strong>Date:</strong> {{ progress.date }}</p>
+                    <p><strong>Day:</strong> {% if forloop.first %} Day 1 {% else %} Day {{ forloop.counter }} {% endif %}</p>
+                    <p><strong>Progress:</strong> {{ progress.details }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No progress available.</p>
+        {% endif %}
+    </section>
+
+    <!-- Form to Add New Progress -->
+    <section class="add-progress-form">
+        <h2>Add Treatment Progress</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ progress_form.date.label_tag }}
+                {{ progress_form.date }}
+                <div class="form-error">{{ progress_form.date.errors }}</div>
+            </div>
+            <div class="form-group">
+                {{ progress_form.details.label_tag }}
+                {{ progress_form.details }}
+                <div class="form-error">{{ progress_form.details.errors }}</div>
+            </div>
+            <button type="submit" name="progress_form" class="submit-button">Add Progress</button>
+        </form>
+    </section>
+
+    <!-- Form to Add Final Result -->
+    <section id="final_result_form" class="add-final-result-form" style="display:none;">
+        <h2>Finalize Treatment</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ final_result_form.final_result.id_for_label }}">Final Result:</label>
+                {{ final_result_form.final_result }}
+                <div class="form-error">{{ final_result_form.final_result.errors }}</div>
+            </div>
+            <button type="submit" class="submit-button">Save Final Result</button>
+        </form>
+    </section>
+
+    <!-- Link to Go Back -->
+    <a href="{% url 'chemicaltracker:view_treatments' %}" class="back-link">Back to Treatments</a>
+</div>
+
+{% endblock %}
