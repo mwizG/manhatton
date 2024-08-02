@@ -10,29 +10,24 @@
 <div class="plant-details-container">
     <h1>Plant Details - {{ plant }}</h1>
 
-<!-- Treatment Overview -->
-  <section class="treatment-overview">
-    <h2>Treatment Overview</h2>
-    {% if treatment_progress %}
-        {% for treatment in treatment_progress %}
-            <div class="treatment-window">
-                <h3>Treatment Details</h3>
-                <p><strong>Chemical:</strong> {{ treatment.treatment.chemical.name }}</p>
-                <p><strong>Active Ingredient:</strong> {{ treatment.treatment.chemical.active_ingredient }}</p>
-                <p><strong>Usage Instructions:</strong> {{ treatment.treatment.chemical.usage_instructions }}</p>
-                <p><strong>Duration:</strong> {{ treatment.treatment.duration_days }} days</p>
-                <p><strong>Time per Week:</strong> {{ treatment.treatment.times_per_week }} times</p>
-                {% if treatment.treatment.final_result %}
-                    <p><strong>Final Result:</strong> {{ treatment.treatment.final_result }}</p>
-                {% else %}
-                    <p><a href="#" onclick="document.getElementById('final_result_form').style.display='block';">Add Final Result</a></p>
-                {% endif %}
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>No treatments found for this plant.</p>
-    {% endif %}
-</section>
+    <!-- Treatment Overview -->
+    <section class="treatment-overview">
+        <h2>Treatment Overview</h2>
+        {% if treatments %}
+            {% for treatment in treatments %}
+                <div class="treatment-window">
+                    <h3>Treatment Details</h3>
+                    <p><strong>Chemical:</strong> {{ treatment.chemical.name }}</p>
+                    <p><strong>Active Ingredient:</strong> {{ treatment.chemical.active_ingredient }}</p>
+                    <p><strong>Usage Instructions:</strong> {{ treatment.chemical.usage_instructions }}</p>
+                    <p><strong>Duration:</strong> {{ treatment.duration_days }} days</p>
+                    <p><strong>Time per Week:</strong> {{ treatment.times_per_week }} times</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No treatments found for this plant.</p>
+        {% endif %}
+    </section>
 
     <!-- Treatment Progress -->
     <section class="treatment-progress">
@@ -45,6 +40,24 @@
                     <p><strong>Progress:</strong> {{ progress.details }}</p>
                 </div>
             {% endfor %}
+            {% if final_result %}
+                <div class="progress-window">
+                    <p><strong>Final Result:</strong> {{ final_result.observation }}</p>
+                    
+                    <p><strong>Outcome:</strong> 
+                        {% if final_result.success %} Success
+                        {% elif final_result.minor_result %} Minor Result
+                        {% elif final_result.failed %} Failed
+                        {% else %} Not Recorded
+                        {% endif %}
+                    </p>
+                    <p><strong>Date:</strong> {{ final_result.date }}</p>
+                </div>
+            {% else %}
+                <div class="progress-window">
+                    <p><strong>No Final Result Available</strong></p>
+                </div>
+            {% endif %}
         {% else %}
             <p>No progress available.</p>
         {% endif %}
@@ -69,15 +82,30 @@
         </form>
     </section>
 
+    <!-- Add Final Result button -->
+    {% if not final_result %}
+        <p><a href="#" class="submit-button" onclick="document.getElementById('final_result_form').style.display='block';">Add Final Result</a></p>
+    {% endif %}
+
     <!-- Form to Add Final Result -->
     <section id="final_result_form" class="add-final-result-form" style="display:none;">
         <h2>Finalize Treatment</h2>
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
-                <label for="{{ final_result_form.final_result.id_for_label }}">Final Result:</label>
-                {{ final_result_form.final_result }}
-                <div class="form-error">{{ final_result_form.final_result.errors }}</div>
+                {{ final_result_form.date.label_tag }}
+                {{ final_result_form.date }}
+                <div class="form-error">{{ final_result_form.date.errors }}</div>
+            </div>
+            <div class="form-group">
+                {{ final_result_form.result.label_tag }}
+                {{ final_result_form.result }}
+                <div class="form-error">{{ final_result_form.result.errors }}</div>
+            </div>
+            <div class="form-group">
+                {{ final_result_form.observation.label_tag }}
+                {{ final_result_form.observation }}
+                <div class="form-error">{{ final_result_form.observation.errors }}</div>
             </div>
             <button type="submit" class="submit-button">Save Final Result</button>
         </form>

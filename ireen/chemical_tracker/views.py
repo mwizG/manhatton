@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect,get_object_or_404
-from .models import Chemical,Recommendation, Treatment,TreatmentProgress
+from .models import Chemical,Recommendation, Treatment,TreatmentProgress,FinalResult
 from .forms import ChemicalForm,RecommendationForm, TreatmentForm,TreatmentProgressForm,FinalResultForm
 
 from django.db.models import Count, Case, When, IntegerField, FloatField, F
@@ -131,17 +131,11 @@ def view_treatments(request):
     })
  
 
+
 def plant_details(request, plant_name):
-    # Debugging output
-    print(f"Plant Name: {plant_name}")
-    
     treatments = Treatment.objects.filter(plant=plant_name)
-    print(f"Treatments Found: {treatments}")
-
     treatment_progress = TreatmentProgress.objects.filter(treatment__in=treatments).order_by('date')
-    print(f"Treatment Progress Found: {treatment_progress}")
 
-    # Initialize forms
     progress_form = TreatmentProgressForm()
     final_result_form = FinalResultForm()
 
@@ -159,13 +153,26 @@ def plant_details(request, plant_name):
             if final_result_form.is_valid():
                 treatment = treatments.first() if treatments.exists() else None
                 if treatment:
-                    treatment.final_result = final_result_form.cleaned_data['final_result']
-                    treatment.save()
+                    final_result, created = FinalResult.objects.get_or_create(treatment=treatment)
+                    final_result.date = final_result_form.cleaned_data['date']
+                    final_result.observation = final_result_form.cleaned_data['observation']
+                    result_value = final_result_form.cleaned_data['result']
+                    
+                    # Clear other outcome fields and set the appropriate one
+                    final_result.success = (result_value == 'success')
+                    final_result.minor_result = (result_value == 'minor_result')
+                    final_result.failed = (result_value == 'failed')
+                    
+                    final_result.save()
                     return redirect('chemicaltracker:plant_details', plant_name=plant_name)
+
+    final_result = FinalResult.objects.filter(treatment__in=treatments).first()
 
     return render(request, 'chemical_tracker/plant_details.html', {
         'plant': plant_name,
+        'treatments': treatments,
         'treatment_progress': treatment_progress,
+        'final_result': final_result,
         'progress_form': progress_form,
         'final_result_form': final_result_form
     })

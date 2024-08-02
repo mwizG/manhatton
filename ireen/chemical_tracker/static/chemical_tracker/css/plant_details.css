@@ -115,6 +115,9 @@
     color: white; /* White text on hover */
 }
 
+
+
+
 /* Responsive design */
 @media (max-width: 600px) {
     .plant-details-container h1 {
