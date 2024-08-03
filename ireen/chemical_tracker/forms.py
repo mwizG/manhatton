@@ -54,7 +54,6 @@ class RecommendationForm(forms.ModelForm):
         }
 
 
-
 class FinalResultForm(forms.ModelForm):
     RESULT_CHOICES = [
         ('success', 'Success'),

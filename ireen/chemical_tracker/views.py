@@ -52,10 +52,20 @@ def update_chemical(request, pk):
     else:
         form = ChemicalForm(instance=chemical)
     return render(request, 'chemical_tracker/update_chemical.html', {'form': form})
+
+
+
 @login_required
 def add_recommendation(request):
+    # Filter chemicals based on user type
+    if request.user.is_staff:
+        chemicals = Chemical.objects.all()
+    else:
+        chemicals = Chemical.objects.filter(Q(user=request.user) | Q(user__is_staff=True))
+    
     if request.method == 'POST':
         form = RecommendationForm(request.POST)
+        form.fields['chemical'].queryset = chemicals  # Filter the chemical field in the form
         if form.is_valid():
             recommendation = form.save(commit=False)
             recommendation.user = request.user
@@ -63,8 +73,9 @@ def add_recommendation(request):
             return redirect('chemicaltracker:chemicalT')
     else:
         form = RecommendationForm()
+        form.fields['chemical'].queryset = chemicals  # Filter the chemical field in the form
+    
     return render(request, 'chemical_tracker/add_recommendation.html', {'form': form})
-
 
 def suggest_chemical_applications(request):
     # Calculate the total number of recommendations and categorize them
@@ -107,10 +118,17 @@ def suggest_chemical_applications(request):
     # Render the suggestions page with the merged details
     return render(request, 'chemical_tracker/suggest_chemical_applications.html', {'suggestions': suggestions_with_details})
 
-@login_required
+
 def add_treatment(request):
+    # Filter chemicals based on user type
+    if request.user.is_staff:
+        chemicals = Chemical.objects.all()
+    else:
+        chemicals = Chemical.objects.filter(Q(user=request.user) | Q(user__is_staff=True))
+    
     if request.method == 'POST':
         form = TreatmentForm(request.POST)
+        form.fields['chemical'].queryset = chemicals  # Filter the chemical field in the form
         if form.is_valid():
             treatment = form.save(commit=False)
             treatment.user = request.user
@@ -124,7 +142,10 @@ def add_treatment(request):
             return redirect('chemicaltracker:plant_details', plant_name=treatment.plant)
     else:
         form = TreatmentForm()
+        form.fields['chemical'].queryset = chemicals  # Filter the chemical field in the form
+    
     return render(request, 'chemical_tracker/add_treatment.html', {'form': form})
+
 
 @login_required
 def view_treatments(request):
@@ -134,6 +155,11 @@ def view_treatments(request):
         'treatments': treatments,
         'plants': plants,
     })
+
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 @login_required
 def plant_details(request, plant_name):
@@ -153,20 +179,36 @@ def plant_details(request, plant_name):
                 if progress.treatment:
                     progress.save()
                     return redirect('chemicaltracker:plant_details', plant_name=plant_name)
+            else:
+                # Debug: Print form errors
+                logger.debug("Progress form errors: %s", progress_form.errors)
         elif 'final_result_form' in request.POST:
             final_result_form = FinalResultForm(request.POST)
             if final_result_form.is_valid():
                 treatment = treatments.first() if treatments.exists() else None
                 if treatment:
-                    final_result, created = FinalResult.objects.get_or_create(treatment=treatment, user=request.user)
-                    final_result.date = final_result_form.cleaned_data['date']
-                    final_result.observation = final_result_form.cleaned_data['observation']
-                    result_value = final_result_form.cleaned_data['result']
-                    final_result.success = (result_value == 'success')
-                    final_result.minor_result = (result_value == 'minor_result')
-                    final_result.failed = (result_value == 'failed')
-                    final_result.save()
+                    final_result, created = FinalResult.objects.get_or_create(
+                        treatment=treatment,
+                        user=request.user,
+                        defaults={
+                            'date': final_result_form.cleaned_data['date'],
+                            'observation': final_result_form.cleaned_data['observation'],
+                            'success': final_result_form.cleaned_data['result'] == 'success',
+                            'minor_result': final_result_form.cleaned_data['result'] == 'minor_result',
+                            'failed': final_result_form.cleaned_data['result'] == 'failed'
+                        }
+                    )
+                    if not created:  # If not created, update the existing instance
+                        final_result.date = final_result_form.cleaned_data['date']
+                        final_result.observation = final_result_form.cleaned_data['observation']
+                        final_result.success = final_result_form.cleaned_data['result'] == 'success'
+                        final_result.minor_result = final_result_form.cleaned_data['result'] == 'minor_result'
+                        final_result.failed = final_result_form.cleaned_data['result'] == 'failed'
+                        final_result.save()
                     return redirect('chemicaltracker:plant_details', plant_name=plant_name)
+            else:
+                # Debug: Print form errors
+                logger.debug("Final result form errors: %s", final_result_form.errors)
     
     final_result = FinalResult.objects.filter(treatment__in=treatments, user=request.user).first()
     
@@ -178,3 +220,4 @@ def plant_details(request, plant_name):
         'progress_form': progress_form,
         'final_result_form': final_result_form
     })
+

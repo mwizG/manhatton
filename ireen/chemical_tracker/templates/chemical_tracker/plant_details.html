@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="{% static 'plant_details.css' %}">
 
 <div class="plant-details-container">
-    <h1>Plant Details - {{ plant }}</h1>
+    <h1>Treatment Details for: {{ plant }}</h1>
 
     <!-- Treatment Overview -->
     <section class="treatment-overview">
@@ -110,6 +110,7 @@
             <button type="submit" class="submit-button">Save Final Result</button>
         </form>
     </section>
+
 
     <!-- Link to Go Back -->
     <a href="{% url 'chemicaltracker:view_treatments' %}" class="back-link">Back to Treatments</a>
