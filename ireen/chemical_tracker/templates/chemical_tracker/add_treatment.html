@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Treatment{% endblock %}
+
+{% block content %}
+<div class="add-treatment-container">
+    {% load static %}
+<link rel="stylesheet" href="{% static 'treatment.css' %}">
+    <h1>Add Treatment</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_chemical">Chemical:</label>
+            {{ form.chemical }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_plant">Plant/Animal:</label>
+            {{ form.plant }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_illness">Illness:</label>
+            {{ form.illness }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_treatment_date">Treatment Date:</label>
+            {{ form.treatment_date }}
+        </div>
+
+        <div class="form-group checkbox-group">
+            <label for="id_is_preventative" class="checkbox-label">
+               Is Preventative: {{ form.is_preventative }}
+            </label>
+        </div>
+
+
+        <div class="form-group">
+            <label for="id_duration_days">Duration (Days):</label>
+            {{ form.duration_days }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_times_per_week">Times Per Week:</label>
+            {{ form.times_per_week }}
+        </div>
+
+        <button type="submit">Save Treatment</button>
+    </form>
+    <a href="{% url 'chemicaltracker:view_treatments' %}">Back to Treatments</a>
+</div>
+{% endblock %}
+
+<!-- CSS Styles -->
+

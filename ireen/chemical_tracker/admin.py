@@ -1,7 +1,10 @@
+# chemical_tracker/admin.py
 from django.contrib import admin
-
-# Register your models here.
-from .models import Chemical,Treatment
+from .models import Chemical, Recommendation ,Treatment,TreatmentProgress,FinalResult
 
 admin.site.register(Chemical)
+
+admin.site.register(Recommendation)
 admin.site.register(Treatment)
+admin.site.register(TreatmentProgress)
+admin.site.register(FinalResult)

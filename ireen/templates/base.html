@@ -11,17 +11,18 @@
             const navUl = document.getElementById('nav-ul');
             navUl.classList.toggle('active');
         }
+
+        function toggleDropdown() {
+            const dropdownContent = document.getElementById('dropdown-content');
+            dropdownContent.classList.toggle('show');
+        }
     </script>
-
-
-<script>
-    function toggleMenu() {
-        const navUl = document.getElementById('nav-ul');
-        const headerText = document.querySelector('header h2');
-        navUl.classList.toggle('active');
-        headerText.classList.toggle('hide-on-menu');
-    }
-</script>
+    <style>
+        /* Dropdown content visibility toggled by JavaScript */
+        .dropdown-content.show {
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -34,7 +35,21 @@
         <nav>
             <ul id="nav-ul">
                 <li><a href="{% url 'logbook:logbook' %}">Log Book</a></li>
-                <li><a href="{% url 'chemicaltracker:chemicalT' %}">Chemical Tracker</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn" onclick="toggleDropdown()">Chemical Tracker</a>
+                    <div id="dropdown-content" class="dropdown-content">
+                        <a href="{% url 'chemicaltracker:chemicalT' %}">Chemical Tracker Home</a>
+                        <a href="{% url 'chemicaltracker:add_chemical' %}">Add Chemical</a>
+                        
+                        <a href="{% url 'chemicaltracker:add_recommendation' %}">Add Recommendation</a>
+                        <a href="{% url 'chemicaltracker:suggest_chemical_applications' %}">Suggest Chemical Applications</a>
+                        <a href="{% url 'chemicaltracker:add_treatment' %}">Add Treatment</a>
+                        <a href="{% url 'chemicaltracker:view_treatments' %}">View Treatments</a>
+                    
+                        <!-- Replace pk=1 with actual IDs as needed -->
+                        
+                    </div>
+                </li>
                 <li><a href="{% url 'weather:weather_forecast' %}">Weather</a></li>
                 <li><a href="{% url 'planting_sug:planting_sug' %}">Planting Suggestions</a></li>
                 <li><a href="{% url 'selling_recom:selling_recom' %}">Selling Suggestions</a></li>
