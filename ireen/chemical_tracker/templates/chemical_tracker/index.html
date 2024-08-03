@@ -17,11 +17,12 @@
         <ul>
             {% for chemical in chemicals %}
             <li>
-                <!-- <span>{{ chemical.name }} - {{ chemical.active_ingredient }}</span> -->
                 <span>{{ chemical.name }}</span>
                 <div>
                     <a href="{% url 'chemicaltracker:chemical_detail' chemical.pk %}">Details</a>
+                    {% if chemical.user == user or user.is_staff %}
                     <a href="{% url 'chemicaltracker:update_chemical' chemical.pk %}">Edit</a>
+                    {% endif %}
                 </div>
             </li>
             {% endfor %}
@@ -30,7 +31,7 @@
         <ul>
             {% for treatment in treatments %}
             <li>
-                <span>{{ treatment.application_date }}: {{ treatment.chemical.name }} - {{ treatment.result }}</span>
+                <span>{{ treatment.treatment_date }}: {{ treatment.chemical.name }} - {{ treatment.result }}</span>
             </li>
             {% endfor %}
         </ul>

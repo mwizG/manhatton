@@ -16,7 +16,9 @@
         <p><strong>Active Ingredient:</strong> {{ chemical.active_ingredient }}</p>
         <p><strong>Usage Instructions:</strong> {{ chemical.usage_instructions }}</p>
         <p><strong>Associated Products:</strong> {{ chemical.associated_products }}</p>
-        <a href="{% url 'chemicaltracker:update_chemical' chemical.pk %}">Edit</a>
+        {% if chemical.user == request.user %}
+                        <a href="{% url 'chemicaltracker:update_chemical' chemical.pk %}">Edit</a>
+                    {% endif %}
         <a href="{% url 'chemicaltracker:chemicalT' %}">Back to List</a>
     </div>
 </body>

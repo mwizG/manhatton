@@ -1,7 +1,8 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Chemical(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE) 
     name = models.CharField(max_length=100)
     active_ingredient = models.CharField(max_length=100)
     usage_instructions = models.TextField()
@@ -11,6 +12,7 @@ class Chemical(models.Model):
         return self.name
 
 class Treatment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE) 
     chemical = models.ForeignKey(Chemical, on_delete=models.CASCADE)
     plant = models.CharField(max_length=100)
     illness = models.CharField(max_length=100)
@@ -24,6 +26,7 @@ class Treatment(models.Model):
 
 
 class TreatmentProgress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE) 
     treatment = models.ForeignKey(Treatment, on_delete=models.CASCADE)
     date = models.DateField()
     details = models.TextField()
@@ -33,6 +36,7 @@ class TreatmentProgress(models.Model):
 
 
 class FinalResult(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE) 
     treatment = models.OneToOneField(Treatment, on_delete=models.CASCADE)
     date = models.DateField(blank=True, null=True)
 
@@ -45,6 +49,7 @@ class FinalResult(models.Model):
         return f"Final Result for {self.treatment} on {self.date}"
 
 class Recommendation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  
     chemical = models.ForeignKey(Chemical, on_delete=models.CASCADE)
     recommended_date = models.DateField()
     reason = models.TextField()
