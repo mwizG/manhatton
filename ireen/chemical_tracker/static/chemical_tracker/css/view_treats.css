@@ -41,8 +41,6 @@ body.view-treatments-body {
     justify-content: center;
 }
 
-
-
 .plant-item a {
     color: #006400; /* Dark green for links */
     text-decoration: none;
@@ -57,11 +55,21 @@ body.view-treatments-body {
     color: white; /* White text on hover */
 }
 
+.treatments-container {
+    margin-top: 20px;
+}
+
+.treatments-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
 .treatment-window {
     background-color: #ccffcc; /* Light green background for treatment window */
-    padding: 10px;
+    padding: 15px;
     border-radius: 8px;
-    margin: 10px 0;
+    margin-bottom: 15px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     border-left: 5px solid #006400; /* Dark green border on the left */
 }
@@ -87,20 +95,18 @@ body.view-treatments-body {
     color: white; /* White text on hover */
 }
 
-
-
 /* Responsive design */
 @media (max-width: 600px) {
-    .treatment-container h1 {
+    .view-treatments-container h1 {
         font-size: 2em;
     }
 
-    .treatment-container p {
+    .view-treatments-container p {
         margin: 15px;
         font-size: 1em;
     }
 
-    .treatment-container a {
+    .view-treatments-container a {
         margin: 10px;
         padding: 8px 16px;
     }
