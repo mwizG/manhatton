@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="{% static 'plant_details.css' %}">
 
 <div class="plant-details-container">
-    <h1>Plant Details - {{ plant }}</h1>
+    <h1>Treatment Details for: {{ plant }}</h1>
 
     <!-- Treatment Overview -->
     <section class="treatment-overview">
@@ -43,8 +43,7 @@
             {% if final_result %}
                 <div class="progress-window">
                     <p><strong>Final Result:</strong> {{ final_result.observation }}</p>
-                    
-                    <p><strong>Outcome:</strong> 
+                    <p><strong>Outcome:</strong>
                         {% if final_result.success %} Success
                         {% elif final_result.minor_result %} Minor Result
                         {% elif final_result.failed %} Failed
@@ -64,27 +63,29 @@
     </section>
 
     <!-- Form to Add New Progress -->
-    <section class="add-progress-form">
-        <h2>Add Treatment Progress</h2>
-        <form method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                {{ progress_form.date.label_tag }}
-                {{ progress_form.date }}
-                <div class="form-error">{{ progress_form.date.errors }}</div>
-            </div>
-            <div class="form-group">
-                {{ progress_form.details.label_tag }}
-                {{ progress_form.details }}
-                <div class="form-error">{{ progress_form.details.errors }}</div>
-            </div>
-            <button type="submit" name="progress_form" class="submit-button">Add Progress</button>
-        </form>
-    </section>
+    {% if not final_result_exists %}
+        <section class="add-progress-form">
+            <h2>Add Treatment Progress</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ progress_form.date.label_tag }}
+                    {{ progress_form.date }}
+                    <div class="form-error">{{ progress_form.date.errors }}</div>
+                </div>
+                <div class="form-group">
+                    {{ progress_form.details.label_tag }}
+                    {{ progress_form.details }}
+                    <div class="form-error">{{ progress_form.details.errors }}</div>
+                </div>
+                <button type="submit" name="progress_form" class="submit-button">Add Progress</button>
+            </form>
+        </section>
+    {% endif %}
 
     <!-- Add Final Result button -->
     {% if not final_result %}
-        <p><a href="#" class="submit-button" onclick="document.getElementById('final_result_form').style.display='block';">Add Final Result</a></p>
+        <p><button type="button" class="final-result-button" onclick="document.getElementById('final_result_form').style.display='block'; this.style.display='none'; document.querySelector('.add-progress-form').style.display='none';">Add Final Result</button></p>
     {% endif %}
 
     <!-- Form to Add Final Result -->
@@ -97,7 +98,7 @@
                 {{ final_result_form.date }}
                 <div class="form-error">{{ final_result_form.date.errors }}</div>
             </div>
-            <div class="form-group">
+            <div class="radio-label">
                 {{ final_result_form.result.label_tag }}
                 {{ final_result_form.result }}
                 <div class="form-error">{{ final_result_form.result.errors }}</div>
@@ -107,7 +108,7 @@
                 {{ final_result_form.observation }}
                 <div class="form-error">{{ final_result_form.observation.errors }}</div>
             </div>
-            <button type="submit" class="submit-button">Save Final Result</button>
+            <button type="submit" name="final_result_form" class="submit-button">Save Final Result</button>
         </form>
     </section>
 

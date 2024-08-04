@@ -32,24 +32,12 @@
     border-radius: 8px;
     margin: 10px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid #a5d6a7; /* Light green border */
-}
-
-.treatment-window h3,
-.progress-window h3 {
-    color: #388e3c; /* Slightly darker green for headings */
-    margin-bottom: 15px;
-}
-
-.treatment-window p,
-.progress-window p {
-    margin: 8px 0;
-    font-size: 1.1em;
+    border: 1px solid #c8e6c9; /* Light green border */
 }
 
 .add-progress-form,
 .add-final-result-form {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .add-progress-form .form-group,
@@ -60,59 +48,63 @@
 .add-progress-form .form-group label,
 .add-final-result-form .form-group label {
     font-weight: bold;
-    margin-bottom: 5px;
-    display: block;
-    color: #388e3c; /* Darker green for labels */
-}
-
-.add-progress-form .form-group input,
-.add-progress-form .form-group textarea,
-.add-final-result-form .form-group input,
-.add-final-result-form .form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #c8e6c9; /* Light green border */
-    border-radius: 6px;
+    color: #388e3c; /* Slightly darker green */
 }
 
 .form-error {
-    color: #f44336; /* Red for error messages */
-    font-size: 0.9em;
-    margin-top: 5px;
+    color: #e53935; /* Red color for error messages */
 }
 
 .submit-button {
-    background-color: #2e7d32; /* Rich green background for button */
-    color: white; /* White text */
+    background-color: #388e3c; /* Rich green color */
+    color: #ffffff;
     border: none;
-    padding: 12px;
-    border-radius: 6px;
+    padding: 10px 20px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    margin-top: 10px;
-    display: inline-block;
-    text-align: center;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .submit-button:hover {
-    background-color: #1b5e20; /* Darker green on hover */
-    transform: scale(1.02); /* Slightly scale up on hover */
+    background-color: #2e7d32; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.submit-button:active {
+    background-color: #1b5e20; /* Even darker green on active */
 }
 
 .back-link {
-    color: #2e7d32; /* Rich green for links */
+    color: #388e3c; /* Rich green color for link */
     text-decoration: none;
     display: inline-block;
     margin-top: 20px;
-    border: 1px solid #2e7d32;
-    padding: 12px 20px;
-    border-radius: 6px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: color 0.3s, text-decoration 0.3s;
 }
 
 .back-link:hover {
-    background-color: #2e7d32; /* Rich green background on hover */
-    color: white; /* White text on hover */
+    color: #2e7d32; /* Darker green on hover */
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Styles for Add Final Result button */
+.final-result-button {
+    background-color: #ffeb3b; /* Yellow color */
+    color: #2e7d32; /* Rich green text */
+    text-decoration: none; /* No underline */
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.final-result-button:hover {
+    background-color: #fdd835; /* Slightly darker yellow on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
 
