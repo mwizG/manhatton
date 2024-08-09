@@ -5,12 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Case, When, IntegerField, FloatField, F
 from django.db.models import Q
 
-def index(request):
-    # Retrieve all chemicals from the database
-    chemicals = Chemical.objects.all()
-    # Render the 'index.html' template with the chemicals context
-    return render(request, 'chemical_tracker/index.html', {'chemicals': chemicals})
-
 
 def index(request):
     # Show all chemicals if the user is an admin, otherwise show only their own chemicals and chemicals added by admins
