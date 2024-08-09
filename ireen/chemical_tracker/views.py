@@ -105,42 +105,43 @@ def add_recommendation(request):
     # Render the 'add_recommendation.html' template with the form context
     return render(request, 'chemical_tracker/add_recommendation.html', {'form': form})
 
+
 def suggest_chemical_applications(request):
     # Calculate the total number of recommendations and categorize them
     suggestions = (
-        Recommendation.objects
-        .values('chemical', 'plant', 'illness')
+        Recommendation.objects  # Start with the Recommendation model
+        .values('chemical', 'plant', 'illness')  # Group by chemical, plant, and illness
         .annotate(
-            total_count=Count('id'),
-            success_count=Count(
+            total_count=Count('id'),  # Count the total number of recommendations for each group
+            success_count=Count(  # Count the number of successful recommendations
                 Case(
-                    When(result='success', then=1),
-                    output_field=IntegerField()
+                    When(result='success', then=1),  # Condition: if the result is 'success'
+                    output_field=IntegerField()  # Output as an integer
                 )
             ),
-            minor_result_count=Count(
+            minor_result_count=Count(  # Count the number of minor results
                 Case(
-                    When(result='minor_result', then=1),
-                    output_field=IntegerField()
+                    When(result='minor_result', then=1),  # Condition: if the result is 'minor_result'
+                    output_field=IntegerField()  # Output as an integer
                 )
             ),
-            success_rate=F('success_count') * 100 / F('total_count'),
-            minor_result_rate=F('minor_result_count') * 100 / F('total_count'),
+            success_rate=F('success_count') * 100 / F('total_count'),  # Calculate the success rate as a percentage
+            minor_result_rate=F('minor_result_count') * 100 / F('total_count'),  # Calculate the minor result rate as a percentage
         )
-        .order_by('-success_rate')  # Prioritize chemicals with higher success rate
+        .order_by('-success_rate')  # Prioritize chemicals with higher success rates, in descending order
     )
 
     # Retrieve detailed information about each suggested chemical
-    chemical_ids = [suggestion['chemical'] for suggestion in suggestions]
-    chemicals = Chemical.objects.filter(id__in=chemical_ids)
+    chemical_ids = [suggestion['chemical'] for suggestion in suggestions]  # Extract chemical IDs from the suggestions
+    chemicals = Chemical.objects.filter(id__in=chemical_ids)  # Retrieve Chemical objects based on the extracted IDs
 
     # Merge detailed chemical info with the suggestions
     suggestions_with_details = [
         {
-            **suggestion,
-            'chemical': chemicals.get(id=suggestion['chemical']),
+            **suggestion,  # Start with the suggestion dictionary
+            'chemical': chemicals.get(id=suggestion['chemical']),  # Add detailed Chemical object to the suggestion
         }
-        for suggestion in suggestions
+        for suggestion in suggestions  # Loop through each suggestion
     ]
 
     # Render the suggestions page with the merged details
