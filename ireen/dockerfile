@@ -1,0 +1,36 @@
+# Dockerfile for API Gateway (ApiGateway)
+
+# Use an official Python runtime as a parent image
+FROM python:3.9
+
+# Set environment variables for Python
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set the working directory inside the container
+WORKDIR /code
+
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+       gcc \
+       python3-dev \
+       libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements.txt /code/
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt --verbose
+
+# Copy the API Gateway code into the container
+COPY . /code/
+
+# Expose the port on which the API Gateway will run (adjust if necessary)
+EXPOSE 8005
+
+# Default value for SERVER_IP, in case it's not provided
+ENV SERVER_IP localhost
+
+# Run the API Gateway service
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8005"]
