@@ -23,7 +23,7 @@ services:
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD:
+      MYSQL_ROOT_PASSWORD:  # You should provide a root password
       MYSQL_DATABASE: ireen
     ports:
       - "3306:3306"
