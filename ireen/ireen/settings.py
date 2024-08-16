@@ -55,7 +55,7 @@ LOGOUT_REDIRECT_URL = 'users:login'
 
 
 
-#ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {
@@ -63,7 +63,7 @@ DATABASES = {
         'NAME': 'ireen',
         'USER': 'root',
         'PASSWORD': '',
-        'HOST': 'host.docker.internal',  # Use 'host.docker.internal' to access host machine from Docker container
+        'HOST': os.environ.get('SERVER_IP'),  # Use the environment variable
         'PORT': '3306',
     }
 }
