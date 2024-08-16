@@ -1,5 +1,3 @@
-# Dockerfile for API Gateway (ApiGateway)
-
 # Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
@@ -14,10 +12,12 @@ RUN apt-get update \
        libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
+# Copy the requirements file first
 COPY requirements.txt /code/
+
+# Install Python dependencies
 RUN pip install --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt --verbose
+    && pip install --no-cache-dir -r requirements.txt
 
 # Copy the API Gateway code into the container
 COPY . /code/
@@ -25,9 +25,8 @@ COPY . /code/
 # Copy db.json into the container (optional if you prefer volume mounting)
 COPY db.json /code/data/
 
-# Expose the port on which the API Gateway will run (adjust if necessary)
+# Expose the port on which the API Gateway will run
 EXPOSE 8005
-
 
 # Run the API Gateway service (you can also include initialization commands here if needed)
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8005"]
