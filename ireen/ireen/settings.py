@@ -62,7 +62,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ireen',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'ASDqwe223!@#',
         'HOST': os.environ.get('SERVER_IP'),  # Use the environment variable
         'PORT': '3306',
     }
