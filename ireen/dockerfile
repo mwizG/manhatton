@@ -9,6 +9,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
        gcc \
        python3-dev \
+       sqlite3 \
        libpq-dev \
        pkg-config \
        default-libmysqlclient-dev \
