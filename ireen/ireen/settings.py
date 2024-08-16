@@ -60,8 +60,8 @@ LOGOUT_REDIRECT_URL = 'users:login'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'your_database_name',
-        'USER': 'your_mysql_user',
+        'NAME': 'ireen',
+        'USER': 'root',
         'PASSWORD': '',
         'HOST': os.environ.get('SERVER_IP'),  # Use the environment variable
         'PORT': '3306',

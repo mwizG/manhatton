@@ -26,11 +26,14 @@ RUN pip install --upgrade pip \
 # Copy the API Gateway code into the container
 COPY . /code/
 
+# Copy db.json into the container (optional if you prefer volume mounting)
+COPY data/db.json /code/data/
+
 # Expose the port on which the API Gateway will run (adjust if necessary)
 EXPOSE 8005
 
 # Default value for SERVER_IP, in case it's not provided
 ENV SERVER_IP localhost
 
-# Run the API Gateway service
+# Run the API Gateway service (you can also include initialization commands here if needed)
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8005"]
