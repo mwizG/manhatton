@@ -2,9 +2,6 @@
 
 # Use an official Python runtime as a parent image
 FROM python:3.9-slim
-# Set environment variables for Python
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
 
 # Set the working directory inside the container
 WORKDIR /code
@@ -31,8 +28,6 @@ COPY db.json /code/data/
 # Expose the port on which the API Gateway will run (adjust if necessary)
 EXPOSE 8005
 
-# Default value for SERVER_IP, in case it's not provided
-ENV SERVER_IP localhost
 
 # Run the API Gateway service (you can also include initialization commands here if needed)
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8005"]
