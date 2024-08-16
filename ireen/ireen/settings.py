@@ -63,7 +63,7 @@ DATABASES = {
         'NAME': 'ireen',
         'USER': 'root',
         'PASSWORD': '',
-        'HOST': os.environ.get('SERVER_IP'),  # Use the environment variable
+        'HOST': 'host.docker.internal',  # Use 'host.docker.internal' to access host machine from Docker container
         'PORT': '3306',
     }
 }
