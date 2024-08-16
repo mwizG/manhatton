@@ -55,9 +55,8 @@ LOGOUT_REDIRECT_URL = 'users:login'
 
 
 
-ALLOWED_HOSTS = ['*']
 
-DATABASES = {
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ireen',
@@ -67,15 +66,13 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-
-"""
+ """
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-"""
 
 
 # Templates
@@ -165,6 +162,6 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
