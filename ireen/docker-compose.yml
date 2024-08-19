@@ -4,17 +4,19 @@ services:
   farm:
     build:
       context: .
-      dockerfile: Dockerfile.farm
+      dockerfile: dockerfile.farm
     container_name: farm
     expose:
       - "8050"
+    environment:
+      - SERVER_IP=your.mysql.server.ip
     networks:
       - webnet
 
   nginx:
     build:
       context: .
-      dockerfile: Dockerfile.nginx
+      dockerfile: dockerfile.nginx
     container_name: nginx
     ports:
       - "80:80"
@@ -26,3 +28,4 @@ services:
 
 networks:
   webnet:
+

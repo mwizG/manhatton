@@ -58,7 +58,7 @@ LOGOUT_REDIRECT_URL = 'users:login'
 
 
 
-""" DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ireen',
@@ -76,7 +76,7 @@ DATABASES = {
     }
 }
 
-
+"""
 # Templates
 TEMPLATES = [
     {

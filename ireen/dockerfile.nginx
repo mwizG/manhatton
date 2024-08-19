@@ -9,3 +9,4 @@ COPY certs /etc/nginx/certs
 
 # Expose ports 80 and 443
 EXPOSE 80 443
+
