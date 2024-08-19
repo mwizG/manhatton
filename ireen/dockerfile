@@ -32,4 +32,4 @@ COPY . /code/
 EXPOSE 8050
 
 # Run the API Gateway service (you can also include initialization commands here if needed)
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8050"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "ireen.wsgi:application"]
