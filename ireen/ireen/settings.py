@@ -169,6 +169,7 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 
+import tempfile
 
 LOGGING = {
     'version': 1,
@@ -177,7 +178,7 @@ LOGGING = {
         'file': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
-            'filename': '/path/to/your/logs/django.error.log',
+            'filename': tempfile.mktemp(prefix='/tmp/django-', suffix='.log'),
         },
     },
     'loggers': {
