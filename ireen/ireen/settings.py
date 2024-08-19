@@ -160,6 +160,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'logbook/static/logbook/css'),
     os.path.join(BASE_DIR, 'chemical_tracker/static/chemical_tracker/css'),
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
