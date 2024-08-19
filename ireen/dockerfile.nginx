@@ -1,0 +1,11 @@
+# Use the official Nginx image
+FROM nginx:alpine
+
+# Copy Nginx configuration file into the container
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Copy SSL certificates into the container
+COPY certs /etc/nginx/certs
+
+# Expose ports 80 and 443
+EXPOSE 80 443

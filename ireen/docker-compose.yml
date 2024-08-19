@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  farm:
+    build:
+      context: .
+      dockerfile: Dockerfile.farm
+    container_name: farm
+    expose:
+      - "8050"
+    networks:
+      - webnet
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - farm
+    networks:
+      - webnet
+
+networks:
+  webnet:
