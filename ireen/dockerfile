@@ -15,9 +15,6 @@ RUN apt-get update \
        default-libmysqlclient-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Create a directory for logs
-RUN mkdir -p /code/logs
-
 # Copy the requirements file first
 COPY requirements.txt /code/
 
@@ -25,14 +22,14 @@ COPY requirements.txt /code/
 RUN pip install --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
-# Copy the project code into the container
+# Copy the API Gateway code into the container
 COPY . /code/
 
-# Set environment variables (if needed, for example, for Django settings)
-# ENV DJANGO_SETTINGS_MODULE=your_project.settings
+# Copy db.json into the container (optional if you prefer volume mounting)
+#COPY db.json /code/data/
 
-# Expose the port that the application runs on
+
 EXPOSE 8050
 
-# Run the application with Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8050", "ireen.wsgi:application"]
+# Run the API Gateway service (you can also include initialization commands here if needed)
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8050"]
