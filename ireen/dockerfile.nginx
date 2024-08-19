@@ -1,12 +1,14 @@
 # Use the official Nginx image
 FROM nginx:alpine
 
-# Copy Nginx configuration file into the container
-COPY nginx.conf /etc/nginx/nginx.conf
+# Create necessary directories
+RUN mkdir -p /etc/nginx/certs /run/nginx
 
+# Copy the custom Nginx configuration file into the container
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY myapp.conf /etc/nginx/conf.d/myapp.conf
 # Copy SSL certificates into the container
 COPY certs /etc/nginx/certs
 
-# Expose ports 80 and 443
+# Expose ports 80 and 443 for HTTP and HTTPS traffic
 EXPOSE 80 443
-

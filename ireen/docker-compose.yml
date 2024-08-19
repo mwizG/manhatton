@@ -1,31 +1,27 @@
-version: '3.8'
-
+version: '3'
 services:
-  farm:
-    build:
-      context: .
-      dockerfile: dockerfile.farm
-    container_name: farm
-    expose:
-      - "8050"
-    environment:
-      - SERVER_IP=your.mysql.server.ip
-    networks:
-      - webnet
-
   nginx:
     build:
       context: .
       dockerfile: dockerfile.nginx
-    container_name: nginx
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certs:/etc/nginx/certs
+      - ./static:/code/static
     depends_on:
       - farm
-    networks:
-      - webnet
 
-networks:
-  webnet:
+    environment:
+      - SERVER_IP=${SERVER_IP}
+  farm:
+    build:
+      context: .
+      dockerfile: dockerfile.farm
+    ports:
+      - "8050:8050"
 
+    environment:
+      - SERVER_IP=${SERVER_IP}

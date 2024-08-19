@@ -59,12 +59,12 @@ LOGOUT_REDIRECT_URL = 'users:login'
 
 
 DATABASES = {
-    'default': {
+       'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ireen',
         'USER': 'root',
         'PASSWORD': 'ASDqwe223!@#',
-        'HOST': os.environ.get('SERVER_IP'),  # Use the environment variable
+        'HOST': os.environ.get('SERVER_IP'),  # Default to 'db' if not set
         'PORT': '3306',
     }
 }
