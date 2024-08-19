@@ -26,9 +26,9 @@ RUN pip install --upgrade pip \
 COPY . /code/
 
 # Copy db.json into the container (optional if you prefer volume mounting)
-COPY db.json /code/data/
+#COPY db.json /code/data/
 
-# Expose the port on which the API Gateway will run
+
 EXPOSE 8050
 
 # Run the API Gateway service (you can also include initialization commands here if needed)
