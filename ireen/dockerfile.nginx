@@ -1,6 +1,6 @@
 # Use the official Nginx image
 FROM nginx:alpine
-
+#mmmmememememme
 # Create necessary directories
 RUN mkdir -p /etc/nginx/certs /run/nginx
 
