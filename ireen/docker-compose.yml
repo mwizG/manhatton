@@ -12,7 +12,6 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./certs:/etc/nginx/certs
-      - ./static:/code/static
       - ./myapp.conf:/etc/nginx/conf.d/myapp.conf
     depends_on:
       - farm
@@ -25,6 +24,9 @@ services:
       dockerfile: dockerfile.farm
     container_name: farm
     image: farm
+    volumes:
+      - ./static:/code/static
+      - ./templates:/code/templates
     ports:
       - "8050:8050"
 
