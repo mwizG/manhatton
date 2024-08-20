@@ -27,7 +27,7 @@ RUN pip install --upgrade pip \
 
 # Copy the project code into the container
 COPY . /code/
-
+RUN python manage.py collectstatic --noinput
 # Expose the port that the application runs on
 EXPOSE 8050
 
