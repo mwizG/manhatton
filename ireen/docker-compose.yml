@@ -13,8 +13,10 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./certs:/etc/nginx/certs
       - ./myapp.conf:/etc/nginx/conf.d/myapp.conf
-      - ./staticfiles:/code/staticfiles  # This should map to where collectstatic places your files
-      - ./media:/code/media  # If you have media files, map this as well
+      # Optionally map staticfiles
+      - ./staticfiles:/code/staticfiles
+      # Optionally map media and templates
+      - ./media:/code/media
       - ./templates:/code/templates
     depends_on:
       - farm
@@ -27,11 +29,11 @@ services:
       dockerfile: dockerfile.farm
     container_name: farm
     image: farm
- #   volumes:
- #     - ./static:/code/static  # Local static files for development, optional
-#      - ./templates:/code/templates  # Local templates for development, optional
     ports:
       - "8050:8050"
+    # Optionally map staticfiles
+#    volumes:
+ #     - ./staticfiles:/code/staticfiles
     environment:
       - SERVER_IP=${SERVER_IP}
 
