@@ -1,0 +1,351 @@
+/* Base font settings */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+/* Container styles */
+.container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    position: relative;
+    margin-right: 0; /* No margin for sidebar, adjust dynamically with JavaScript */
+
+    grid-template-columns: 1fr ; /* Sidebar and content for medium screens */
+
+}
+
+
+/* Sidebar styles */
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #f4f4f9; /* Light gray background */
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 1;
+    color: #333; /* Darker text color for better readability */
+}
+
+/* Sidebar open state */
+.sidebar.open {
+    transform: translateX(0);
+}
+
+/* Close button */
+.close-btn {
+    font-size: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #00796b; /* Teal color */
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #004d40; /* Darker teal on hover */
+}
+
+/* Filters header */
+.sidebar h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #00796b; /* Teal color */
+    margin-bottom: 15px;
+    border-bottom: 2px solid #00796b; /* Underline header */
+    padding-bottom: 5px;
+}
+
+/* Form styles */
+#filterForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Select dropdown */
+#filter_by {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+}
+
+/* Date and text inputs */
+input[type="date"], 
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #00796b; /* Teal color */
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #004d40; /* Darker teal on hover */
+}
+
+.btn-secondary {
+    background-color: #f1f1f1; /* Light gray background */
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #ddd; /* Slightly darker gray on hover */
+}
+
+
+
+
+/* Hide the hamburger menu when sidebar is open */
+.sidebar.open ~ .hamburger-menu {
+    display: none;
+}
+
+/* Hamburger menu button */
+.hamburger-menu {
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+}
+
+
+
+/* Chart section */
+.chart-section {
+    margin-top: 20px;
+}
+
+
+/* Summary section */
+.summary {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.summary-item {
+    flex: 1;
+    padding: 10px; /* Keep original padding */
+    text-align: center;
+    border: 1px solid #ddd; /* Keep original border */
+    border-radius: 5px;
+}
+
+/* Specific colors */
+#total_spent {
+    color: #d32f2f; /* Faint red for Total Spent */
+}
+
+#total_earned {
+    color: #388e3c; /* Lighter green for Total Earned */
+}
+
+#profit {
+    color: #4caf50; /* Green for Profit Made */
+}
+
+
+/* Button group styles */
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.envelope-btn {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+}
+
+.envelope-btn.active {
+    background-color: #b2dfdb; /* Light green for active button */
+}
+
+/* Section styles */
+.section {
+    display: none;
+    margin-top: 20px;
+}
+
+.section .list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section .list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px; /* Rounded corners for a softer look */
+    background-color: #f9f9f9; /* Light background for list items */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-bottom: 10px; /* Space between list items */
+    font-family: 'Roboto', sans-serif; /* Consistent font for list items */
+}
+
+.section .item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+}
+
+.section .item-date {
+    font-weight: 600; /* Bold for the date */
+    color: #00796b; /* Teal color for contrast */
+}
+
+.section .item-info {
+    margin-top: 5px;
+    color: #004d40; /* Dark green color for item details */
+}
+
+
+/* Button group styles */
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.envelope-btn {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 0 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Roboto', sans-serif; /* Consistent font */
+    text-align: center;
+}
+
+/* Light green for Expenses */
+.envelope-btn.expenses {
+    background-color: #e8f5e9; /* Light green */
+    color: #004d40; /* Darker green text for contrast */
+}
+
+/* Light yellow for Sales */
+.envelope-btn.sales {
+    background-color: #fffde7; /* Light yellow */
+    color: #fbc02d; /* Darker yellow text for contrast */
+}
+
+/* Active state */
+.envelope-btn.active {
+    border: 1px solid #aaa;
+}
+
+.envelope-btn.expenses.active {
+    background-color: #c8e6c9; /* Slightly darker green for active state */
+}
+
+.envelope-btn.sales.active {
+    background-color: #f0f4c3; /* Slightly darker yellow for active state */
+}
+
+
+
+
+
+/* Button styles for update and delete actions */
+.section .actions {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+.section .actions .btn {
+    padding: 8px 16px; /* Consistent button padding */
+    font-size: 14px;
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #4caf50; /* Green background */
+    color: #fff;
+    border: 1px solid #4caf50;
+}
+
+.btn-primary:hover {
+    background-color: #388e3c; /* Darker green on hover */
+    border-color: #388e3c;
+}
+
+.btn-danger {
+    background-color: #f44336; /* Red background */
+    color: #fff;
+    border: 1px solid #f44336;
+}
+
+.btn-danger:hover {
+    background-color: #c62828; /* Darker red on hover */
+    border-color: #c62828;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 5px;
+    }
+
+    .summary-item {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .dropdown-content {
+        min-width: 100%;
+    }
+
+    .section .list-item {
+        flex-direction: column; /* Stack details and actions vertically */
+        align-items: flex-start; /* Align items to the start */
+    }
+
+    .section .actions {
+        margin-top: 10px; /* Space above actions */
+        width: 100%; /* Full width for buttons */
+    }
+}

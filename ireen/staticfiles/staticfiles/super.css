@@ -1,0 +1,126 @@
+/* super.css */
+
+/* Base styles for the whole page */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8f5; /* Light green background */
+    color: #333;
+}
+
+/* Page header */
+h1 {
+    color: #2e8b57; /* Dark green for main heading */
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2.5em;
+}
+
+/* Form styles */
+form {
+    background-color: white;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 600px;
+    border: 1px solid #ccc;
+}
+
+form p {
+    margin-bottom: 15px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #3a6b4d; /* Slightly darker green for labels */
+}
+
+form input,
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form input[type="checkbox"] {
+    width: auto; /* Ensure checkbox is not stretched */
+    margin-right: 10px; /* Space between checkbox and label */
+}
+
+form button {
+    background-color: #2a704a; /* Darker green button */
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #246a43; /* Even darker green on hover */
+}
+
+/* Links */
+a {
+    color: #2e8b57; /* Dark green for links */
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Form group styles */
+.form-group {
+    margin-bottom: 20px; /* Space between form groups */
+}
+
+
+
+/* Checkboxes */
+form input[type="checkbox"] {
+    margin-right: 10px; /* Space between checkbox and label */
+}
+
+/* Custom styling for result checkboxes */
+.result-checkbox-group {
+    margin-top: 10px;
+}
+
+.result-checkbox-group label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px; /* Space between checkboxes */
+}
+
+.result-checkbox-group input[type="checkbox"] {
+    width: auto; /* Ensure checkbox is not stretched */
+    margin-right: 8px; /* Space between checkbox and label */
+}
+
+
+
+
+
+/* Responsive design */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    form {
+        padding: 15px;
+        margin: 10px;
+    }
+}

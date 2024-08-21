@@ -1,0 +1,113 @@
+/* view_treatments.css */
+
+/* Base styles */
+body.view-treatments-body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e6f7e6; /* Light green background */
+    color: #333;
+}
+
+.view-treatments-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.view-treatments-container h1,
+.view-treatments-container h2 {
+    color: #006400; /* Dark green for headings */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.view-treatments-container p {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.plants-container {
+    margin-bottom: 20px;
+}
+
+.plants-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.plant-item a {
+    color: #006400; /* Dark green for links */
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.plant-item a:hover {
+    background-color: #006400; /* Dark green background on hover */
+    color: white; /* White text on hover */
+}
+
+.treatments-container {
+    margin-top: 20px;
+}
+
+.treatments-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.treatment-window {
+    background-color: #ccffcc; /* Light green background for treatment window */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #006400; /* Dark green border on the left */
+}
+
+.treatment-window p {
+    margin: 5px 0;
+    font-size: 1.1em;
+}
+
+.view-treatments-container a {
+    color: #006400; /* Dark green for links */
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+    border: 1px solid #006400;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.view-treatments-container a:hover {
+    background-color: #006400; /* Dark green background on hover */
+    color: white; /* White text on hover */
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .view-treatments-container h1 {
+        font-size: 2em;
+    }
+
+    .view-treatments-container p {
+        margin: 15px;
+        font-size: 1em;
+    }
+
+    .view-treatments-container a {
+        margin: 10px;
+        padding: 8px 16px;
+    }
+}
