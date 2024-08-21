@@ -1,0 +1,119 @@
+/* treatment.css */
+
+/* Base styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8f5; /* Light green background */
+    color: #333;
+}
+
+.add-treatment-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-treatment-container h1 {
+    color: #2e8b57; /* Dark green for main heading */
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+}
+
+.add-treatment-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.add-treatment-container form button {
+    background-color: #2e8b57; /* Dark green background for button */
+    color: white; /* White text */
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.add-treatment-container form button:hover {
+    background-color: #3a6b4d; /* Slightly darker green on hover */
+}
+
+.add-treatment-container a {
+    color: #2e8b57; /* Dark green for links */
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+    border: 1px solid #2e8b57;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.add-treatment-container a:hover {
+    background-color: #2e8b57; /* Dark green background on hover */
+    color: white; /* White text on hover */
+}
+
+
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.checkbox-label input {
+    margin-right: 10px;
+    width: auto;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .suggest-container h1 {
+        font-size: 2em;
+    }
+
+    .suggest-container ul {
+        padding: 0 10px;
+    }
+
+    .suggest-container li {
+        padding: 10px;
+    }
+
+    .suggest-container a {
+        margin: 10px auto;
+        padding: 8px 16px;
+    }
+}

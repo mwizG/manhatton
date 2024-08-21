@@ -1,0 +1,135 @@
+/* plant_details.css */
+
+/* Base styles for plant details */
+.plant-details-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #c8e6c9; /* Light green border */
+}
+
+.plant-details-container h1 {
+    color: #2e7d32; /* Rich green color */
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.plant-details-container h2 {
+    color: #388e3c; /* Slightly darker green for section headers */
+    border-bottom: 2px solid #a5d6a7; /* Light green underline */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.treatment-window,
+.progress-window {
+    background-color: #ffffff; /* White background for windows */
+    padding: 20px;
+    border-radius: 8px;
+    margin: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #c8e6c9; /* Light green border */
+}
+
+.add-progress-form,
+.add-final-result-form {
+    margin-top: 20px;
+}
+
+.add-progress-form .form-group,
+.add-final-result-form .form-group {
+    margin-bottom: 15px;
+}
+
+.add-progress-form .form-group label,
+.add-final-result-form .form-group label {
+    font-weight: bold;
+    color: #388e3c; /* Slightly darker green */
+}
+
+.form-error {
+    color: #e53935; /* Red color for error messages */
+}
+
+.submit-button {
+    background-color: #388e3c; /* Rich green color */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.submit-button:hover {
+    background-color: #2e7d32; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.submit-button:active {
+    background-color: #1b5e20; /* Even darker green on active */
+}
+
+.back-link {
+    color: #388e3c; /* Rich green color for link */
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+    transition: color 0.3s, text-decoration 0.3s;
+}
+
+.back-link:hover {
+    color: #2e7d32; /* Darker green on hover */
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Styles for Add Final Result button */
+.final-result-button {
+    background-color: #ffeb3b; /* Yellow color */
+    color: #2e7d32; /* Rich green text */
+    text-decoration: none; /* No underline */
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.final-result-button:hover {
+    background-color: #fdd835; /* Slightly darker yellow on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+
+
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .plant-details-container h1 {
+        font-size: 1.5em;
+    }
+
+    .plant-details-container h2 {
+        font-size: 1.2em;
+    }
+
+    .add-progress-form .form-group input,
+    .add-progress-form .form-group textarea,
+    .add-final-result-form .form-group input,
+    .add-final-result-form .form-group textarea {
+        font-size: 0.9em;
+    }
+
+    .submit-button,
+    .back-link {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+}

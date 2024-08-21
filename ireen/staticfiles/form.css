@@ -1,0 +1,100 @@
+/* Reset some basic styles */
+body, h1, p, form, button, a {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Body styling */
+body {
+    background-color: #f0fff0; /* Light green background */
+    color: #333;
+    padding: 20px;
+}
+
+/* General container styling */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+h1 {
+    color: #006400; /* Dark green */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form input[type="text"], form input[type="number"], form input[type="date"], form select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Button styling */
+button, .btn-primary, .btn-danger {
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button, .btn-primary {
+    background-color: #32cd32; /* Lime green */
+    color: white;
+}
+
+.btn-danger {
+    background-color: #dc143c; /* Crimson red */
+    color: white;
+}
+
+button:hover, .btn-primary:hover, .btn-danger:hover {
+    opacity: 0.9;
+}
+
+/* Link styling */
+a {
+    text-decoration: none;
+    color: #006400; /* Dark green */
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Additional form element styling */
+form .errorlist {
+    color: red;
+    margin-bottom: 10px;
+}
+
+form .helptext {
+    font-size: 0.9em;
+    color: #666;
+}
+
+form input:focus, form select:focus {
+    border-color: #32cd32; /* Lime green */
+    outline: none;
+    box-shadow: 0 0 5px rgba(50, 205, 50, 0.5);
+}
+
+/* Align cancel button with the form */
+form a {
+    margin-top: 10px;
+    display: inline-block;
+}
