@@ -1,0 +1,77 @@
+/* view_profile.css */
+
+/* Base styles for the entire page */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8f5; /* Light green background */
+    color: #333;
+}
+
+/* Page header */
+h2 {
+    color: #2e8b57; /* Dark green for heading */
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2em;
+}
+
+/* Profile information container */
+.profile-info {
+    background-color: white;
+    padding: 20px;
+    margin: 40px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 600px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+/* Paragraph styles for profile details */
+.profile-info p {
+    margin-bottom: 15px;
+    color: #3a6b4d; /* Slightly darker green for text */
+    font-size: 1.1em;
+}
+
+/* Profile information labels (before values) */
+.profile-info p span {
+    font-weight: bold;
+    color: #2e8b57;
+}
+
+/* Edit Profile link */
+.profile-info a {
+    color: #2a704a; /* Darker green for links */
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 15px;
+    background-color: #2e8b57;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the edit profile link */
+.profile-info a:hover {
+    background-color: #246a43; /* Even darker green on hover */
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    h2 {
+        font-size: 1.8em;
+    }
+
+    .profile-info {
+        padding: 15px;
+        margin: 20px;
+    }
+
+    .profile-info p {
+        font-size: 1em;
+    }
+}

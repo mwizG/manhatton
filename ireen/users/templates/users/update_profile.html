@@ -3,11 +3,22 @@
 {% block title %}Update Profile{% endblock %}
 
 {% block content %}
-<h2>Update Profile</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ profile_form.as_p }}
-    <button type="submit">Save Changes</button>
-</form>
-<a href="{% url 'users:view_profile' %}">Cancel</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Update Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'profile_update.css' %}">
+    <!-- The CSS is already included through the {% block head %} in the base template -->
+</head>
+<body>
+    <h2>Update Profile</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ profile_form.as_p }}
+        <button type="submit">Save Changes</button>
+    </form>
+    <a href="{% url 'users:view_profile' %}">Cancel</a>
+</body>
+</html>
 {% endblock %}
