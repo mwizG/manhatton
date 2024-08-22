@@ -3,21 +3,24 @@
 {% block title %}Farm Management System{% endblock %}
 
 {% block content %}
-
-
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Login</title>
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="{% static 'login.css' %}">
 </head>
 <body>
     <h1>Login</h1>
+    
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Login</button>
     </form>
-    <a href="{% url 'users:signup' %}">Signup</a>
+    
+    <a href="{% url 'users:signup' %}">Don't have an account? Signup here.</a>
 </body>
 </html>
 {% endblock %}
