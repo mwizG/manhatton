@@ -13,11 +13,6 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./certs:/etc/nginx/certs
       - ./myapp.conf:/etc/nginx/conf.d/myapp.conf
-      # Optionally map staticfiles
-      - ./staticfiles:/code/staticfiles
-      # Optionally map media and templates
-      - ./media:/code/media
-      - ./templates:/code/templates
     depends_on:
       - farm
     environment:
@@ -31,9 +26,7 @@ services:
     image: farm
     ports:
       - "8050:8050"
-    # Optionally map staticfiles
-#    volumes:
- #     - ./staticfiles:/code/staticfiles
+
     environment:
       - SERVER_IP=${SERVER_IP}
 
