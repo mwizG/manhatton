@@ -161,6 +161,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'logbook/static/logbook/css'),
     os.path.join(BASE_DIR, 'chemical_tracker/static/chemical_tracker/css'),
+    os.path.join(BASE_DIR, 'users/static/users/css'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
