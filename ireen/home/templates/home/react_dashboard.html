@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}React Dashboard{% endblock %}
+
+{% block content %}
+  <div id="root"></div>
+  <link rel="stylesheet" href="{% static 'react-dashboard/assets/app.css' %}">
+  <script type="module" src="{% static 'react-dashboard/assets/app.js' %}"></script>
+{% endblock %}

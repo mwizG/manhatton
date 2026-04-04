@@ -1,0 +1,51 @@
+from django.urls import path
+
+from .views import (
+    ChemicalDetailAPIView,
+    ChemicalListCreateAPIView,
+    AuthLoginAPIView,
+    AuthLogoutAPIView,
+    AuthProfileAPIView,
+    CsrfTokenAPIView,
+    ChemicalSuggestionAPIView,
+    ExpenseDetailAPIView,
+    ExpenseListCreateAPIView,
+    FinalResultDetailAPIView,
+    FinalResultListCreateAPIView,
+    LogbookSummaryAPIView,
+    RecommendationDetailAPIView,
+    RecommendationListCreateAPIView,
+    SaleDetailAPIView,
+    SaleListCreateAPIView,
+    TreatmentDetailAPIView,
+    TreatmentListCreateAPIView,
+    TreatmentProgressDetailAPIView,
+    TreatmentProgressListCreateAPIView,
+    WeatherCurrentAPIView,
+)
+
+app_name = 'api'
+
+urlpatterns = [
+    path('csrf/', CsrfTokenAPIView.as_view(), name='csrf_token'),
+    path('auth/login/', AuthLoginAPIView.as_view(), name='auth_login'),
+    path('auth/logout/', AuthLogoutAPIView.as_view(), name='auth_logout'),
+    path('auth/profile/', AuthProfileAPIView.as_view(), name='auth_profile'),
+    path('chemical-tracker/chemicals/', ChemicalListCreateAPIView.as_view(), name='chemical_list'),
+    path('chemical-tracker/chemicals/<int:pk>/', ChemicalDetailAPIView.as_view(), name='chemical_detail'),
+    path('chemical-tracker/recommendations/', RecommendationListCreateAPIView.as_view(), name='chemical_recommendation_list'),
+    path('chemical-tracker/recommendations/<int:pk>/', RecommendationDetailAPIView.as_view(), name='chemical_recommendation_detail'),
+    path('chemical-tracker/treatments/', TreatmentListCreateAPIView.as_view(), name='chemical_treatment_list'),
+    path('chemical-tracker/treatments/<int:pk>/', TreatmentDetailAPIView.as_view(), name='chemical_treatment_detail'),
+    path('chemical-tracker/progress/', TreatmentProgressListCreateAPIView.as_view(), name='chemical_progress_list'),
+    path('chemical-tracker/progress/<int:pk>/', TreatmentProgressDetailAPIView.as_view(), name='chemical_progress_detail'),
+    path('chemical-tracker/final-results/', FinalResultListCreateAPIView.as_view(), name='chemical_final_result_list'),
+    path('chemical-tracker/final-results/<int:pk>/', FinalResultDetailAPIView.as_view(), name='chemical_final_result_detail'),
+    path('logbook/summary/', LogbookSummaryAPIView.as_view(), name='logbook_summary'),
+    path('logbook/expenses/', ExpenseListCreateAPIView.as_view(), name='expense_list'),
+    path('logbook/expenses/<int:pk>/', ExpenseDetailAPIView.as_view(), name='expense_detail'),
+    path('logbook/sales/', SaleListCreateAPIView.as_view(), name='sale_list'),
+    path('logbook/sales/<int:pk>/', SaleDetailAPIView.as_view(), name='sale_detail'),
+    path('chemical-tracker/suggestions/', ChemicalSuggestionAPIView.as_view(), name='chemical_suggestions'),
+    path('weather/current/', WeatherCurrentAPIView.as_view(), name='weather_current'),
+]

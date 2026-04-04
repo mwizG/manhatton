@@ -3,39 +3,35 @@
 {% block title %}Farm Management System{% endblock %}
 
 {% block content %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Chemical Tracker</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'tracker.css' %}">
-</head>
-<body class="chemical-tracker-body">
+{% load static %}
+<link rel="stylesheet" href="{% static 'tracker.css' %}">
+
+<div class="chemical-tracker-body">
     <div class="chemical-tracker">
         <h1>Chemical Tracker</h1>
-        <h2>Chemicals</h2>
-        <ul>
-            {% for chemical in chemicals %}
-            <li>
-                <span>{{ chemical.name }}</span>
-                <div>
-                    <a href="{% url 'chemicaltracker:chemical_detail' chemical.pk %}">Details</a>
-                    {% if chemical.user == user or user.is_staff %}
-                    <a href="{% url 'chemicaltracker:update_chemical' chemical.pk %}">Edit</a>
-                    {% endif %}
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
-        <h2>Treatments</h2>
-        <ul>
-            {% for treatment in treatments %}
-            <li>
-                <span>{{ treatment.treatment_date }}: {{ treatment.chemical.name }} - {{ treatment.result }}</span>
-            </li>
-            {% endfor %}
-        </ul>
+        <p>Choose a section to work in instead of handling everything on one screen.</p>
+
+        <div class="tracker-sections">
+            <section class="tracker-section">
+                <h2>Chemicals</h2>
+                <p>Manage chemical records and usage notes.</p>
+                <a href="{% url 'chemicaltracker:add_chemical' %}">Add chemical</a>
+            </section>
+
+            <section class="tracker-section">
+                <h2>Recommendations</h2>
+                <p>Record recommendation outcomes and suggestions.</p>
+                <a href="{% url 'chemicaltracker:add_recommendation' %}">Add recommendation</a>
+                <a href="{% url 'chemicaltracker:suggest_chemical_applications' %}">View suggestions</a>
+            </section>
+
+            <section class="tracker-section">
+                <h2>Treatments</h2>
+                <p>Track treatment plans, progress, and results.</p>
+                <a href="{% url 'chemicaltracker:add_treatment' %}">Add treatment</a>
+                <a href="{% url 'chemicaltracker:view_treatments' %}">View treatments</a>
+            </section>
+        </div>
     </div>
-</body>
-</html>
+</div>
 {% endblock %}
